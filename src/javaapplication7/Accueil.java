@@ -128,7 +128,13 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
             try{
                 //Connexion à la base de données
                 Connexion co = new Connexion ("hopital","root","root");
-
+                  
+                System.out.println("Connection réussie");
+                
+                //On lance la page d'après
+                EcranPrincipal ep = new EcranPrincipal();
+                
+                /*
                 //Affichage de ce qu'il y a dans la colonne Employés
                 ArrayList<String>tab = new ArrayList<>();
                 tab = co.remplirChampsRequete("select * from employe");
@@ -138,6 +144,7 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
                 while(it.hasNext()){
                     System.out.println(it.next());
                 }
+                */
             }    
             catch (Exception e ){
                 e.printStackTrace();

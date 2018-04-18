@@ -26,9 +26,9 @@ public class JavaApplication7 {
     public static void main(String[] args) {
         // TODO code application logic here
         
-    //Accueil oc = new Accueil();
+        Accueil oc = new Accueil();
     
-    EcranPrincipal ep = new EcranPrincipal();
+    
     
         
 
