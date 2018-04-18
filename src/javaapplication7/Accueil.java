@@ -42,7 +42,8 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
         
         //Mise en page de la fenêtre
         setLayout(new BorderLayout());
-        setSize(600,600);
+        setBounds(0, 0, 400, 400);
+        setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Création de nos variables 
@@ -101,6 +102,9 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
         //Ajout du pannel à la fenêtre créée
         add(p0, BorderLayout.CENTER);
        
+        getContentPane().add(p0, BorderLayout.CENTER);
+        add("North", p0);
+        
         setVisible(true);
        
         
