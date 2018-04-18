@@ -98,23 +98,7 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
         }
         
         jtable.setModel(table);
-      
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+     
         // Création des pannels  
         p0 = new JPanel(); 
         p1 = new JPanel(); 
@@ -133,11 +117,7 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
         
          p2.add(combo);
         p1.add(jScrollPane); 
-        
-       
-        
-        
-        
+
         // disposition geographique des panneaux 
          this.getContentPane().add(p2, BorderLayout. CENTER);
         this.getContentPane().add(p1, BorderLayout.SOUTH);
@@ -165,7 +145,6 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
              Statement stmt = conn.createStatement();
              
              ResultSet Requete = stmt.executeQuery("SELECT column_name FROM information_schema.columns WHERE table_name = '"+combo.getSelectedItem()+"'");
-            
            
                  while(Requete.next())
                  {

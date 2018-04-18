@@ -90,7 +90,7 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
         
         p0.add(nameECE);
         p0.add(nameECETexte);
-         p0.add(passwdECE);
+        p0.add(passwdECE);
         p0.add(passwdECETexte);
         p0.add(loginBDD);
         p0.add(loginBDDTexte);
@@ -103,18 +103,8 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
  
          
        
-       
-        
-        /*
-        p0.add(nameECE);
-        p0.add(loginBDD);
-        p1.add(nameECETexte);
-        p1.add(loginBDDTexte);
-        p2.add(passwdECE);
-        p2.add(passwdBDD);
-        p3.add(passwdECETexte);
-        p3.add(passwdBDDTexte);
-        */
+
+ 
         // ajout des listeners
         connectECE.addActionListener(this);
         executer.addActionListener(this);
