@@ -26,28 +26,9 @@ public class JavaApplication7 {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        Accueil oc = new Accueil();
-    
-    
-    
+        Accueil ac = new Accueil();
         
-
-        /*
-        //Connection to database
-        Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:8889/hopital", "root", "root");
         
-        //Create Statement
-         Statement myStmt = myConn.createStatement();
-         
-        //execute sql query
-        ResultSet myRs = myStmt.executeQuery("select * from employe");
-        
-        //Results st
-        while (myRs.next()) {
-            System.out.println(myRs.getString("nom")+ " , "+myRs.getString("prenom")+ " , "+myRs.getString("adresse"));
-        }
-        */
-
     
 }
 }

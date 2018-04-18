@@ -126,18 +126,15 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-      Object Source = e.getSource();
-      
-      if(Source == connectECE){
+    public void actionPerformed(ActionEvent e) {      
+      if(e.getSource() == connectECE){
           ArrayList<String> liste;
             
             String passwdECEString = new String(passwdECETexte.getPassword());
             String passwdBDDString = new String(passwdBDDTexte.getPassword());
         
       }
-      else if (Source == connectlocal) {
+      else if (e.getSource() == connectlocal) {
           try {
               ArrayList<String> liste;
               
