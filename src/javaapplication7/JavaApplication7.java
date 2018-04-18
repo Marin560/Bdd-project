@@ -7,7 +7,7 @@ package javaapplication7;
 
 import java.sql.SQLException;
 
-import jdbcv2018.Connexion;
+import javaapplication7.Connexion;
 
 import java.sql.*;
 import java.util.ArrayList;

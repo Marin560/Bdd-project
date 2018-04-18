@@ -1,155 +1,171 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package javaapplication7;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import jdbcv2018.Connexion;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
- * @author peti_
+ * @author Roxane
  */
 public class Accueil extends JFrame implements ActionListener, ItemListener {
     
-    private Connexion maconnexion; //Ajout d'une nouvelle connexion
+    private Connection maconnexion; //Ajout d'une nouvelle connexion
     private JLabel nameECE, passwdECE, loginBDD, passwdBDD, nameBDD;
     private JTextField nameECETexte, loginBDDTexte, nameBDDTexte;
     private JPasswordField passwdECETexte, passwdBDDTexte;
     private JButton connectECE, executer, connectlocal;
     private JPanel p0, p1, p2, p3;
     
+    //Liste des noms de nos conteneurs pour les deux pages
+  //String[] listContent = {"ConnexionLocale", "ConnexionECE"};
+  //int indice = 0;
     
+ 
     public Accueil(){
         
-        //Constructeur JFrame
         super("Accueil");
         
-        //Mise en page de la fenêtre
+         // mise en page (layout) de la fenetre visible
         setLayout(new BorderLayout());
         setBounds(0, 0, 400, 400);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+
+        // creation des boutons
         
-        //Création de nos variables 
-        //Bouttons
         connectECE = new JButton("Connexion ECE");
-        executer = new JButton("Executer"); 
-        connectlocal = new JButton("Connexion Locale");
+        connectlocal = new JButton("Connexion locale");
+        executer = new JButton("Executer");
         
-        //Textes
+        
+        // creation des textes
+        
         nameECETexte = new JTextField();
         passwdECETexte = new JPasswordField(8);
         loginBDDTexte = new JTextField();
         passwdBDDTexte = new JPasswordField(8);
         nameBDDTexte = new JTextField();
         
-        //Labels
+        //Création des labels
+        
         nameECE = new JLabel("login ECE :", JLabel.CENTER);
         passwdECE = new JLabel("password ECE :", JLabel.CENTER);
         loginBDD = new JLabel("login base :", JLabel.CENTER);
         passwdBDD = new JLabel("password base :", JLabel.CENTER);
         nameBDD = new JLabel("nom base :", JLabel.CENTER);
         
-        //Pannels
+        // Création des panneaux
+        
         p0 = new JPanel();
+        p1 = new JPanel();
+        p2 = new JPanel();
+        p3 = new JPanel();
         
         
-        //Ajout des listeners
-        //Boutons
+        p0.setLayout(new GridLayout(0, 1,-5,5)); 
+        //p1.setLayout(new GridLayout(0,1)); 
+        //p2.setLayout(new GridLayout(5, 5)); 
+        //p3.setLayout(new GridLayout(8, 8)); 
+        
+        p0.add(nameECE);
+        p0.add(nameECETexte);
+         p0.add(passwdECE);
+        p0.add(passwdECETexte);
+        p0.add(loginBDD);
+        p0.add(loginBDDTexte);
+        p0.add(passwdBDD);
+        p0.add(passwdBDDTexte);
+        p0.add(nameBDD);
+        p0.add(nameBDDTexte);
+        p0.add(connectECE);
+        p0.add(connectlocal);
+ 
+         
+       
+       
+        
+        /*
+        p0.add(nameECE);
+        p0.add(loginBDD);
+        p1.add(nameECETexte);
+        p1.add(loginBDDTexte);
+        p2.add(passwdECE);
+        p2.add(passwdBDD);
+        p3.add(passwdECETexte);
+        p3.add(passwdBDDTexte);
+        */
+        // ajout des listeners
         connectECE.addActionListener(this);
         executer.addActionListener(this);
         connectlocal.addActionListener(this);
-        //Textes
         nameECETexte.addActionListener(this);
         passwdECETexte.addActionListener(this);
         loginBDDTexte.addActionListener(this);
         passwdBDDTexte.addActionListener(this);
         
-        ///Ajout de tous les élément au panel
-        //Bouttons
-        p0.add(connectECE);
-        p0.add(executer);
-        p0.add(connectlocal);
-        //Textes
-        p0.add(nameECETexte);
-        p0.add(passwdECETexte);
-        p0.add(loginBDDTexte);
-        p0.add(passwdBDDTexte);
-        p0.add(nameBDDTexte);
-        //Labels
-        p0.add(nameECE);
-        p0.add(passwdECE);
-        p0.add(loginBDD);
-        p0.add(passwdBDD);
-        p0.add(nameBDD);
-        
-        //Ajout du pannel à la fenêtre créée
-        add(p0, BorderLayout.CENTER);
-       
-        getContentPane().add(p0, BorderLayout.CENTER);
-        add("North", p0);
-        
-        setVisible(true);
-       
-        
-        System.out.println("Classe accueil");
-        
+        //this.getContentPane().add(p0, BorderLayout.NORTH);
+        this.getContentPane().add(p0, BorderLayout.CENTER);
+        this.getContentPane().add(p2, BorderLayout.CENTER);
+        this.getContentPane().add(p2, BorderLayout.SOUTH);
+        add("North", p0); 
+        add("Center", p1); 
+        add("Center", p2);
+        add("South", p3); 
+         
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(ActionEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        if(ae.getSource()== connectECE){
-            ArrayList<String> liste;
+      Object Source = e.getSource();
+      
+      if(Source == connectECE){
+          ArrayList<String> liste;
             
             String passwdECEString = new String(passwdECETexte.getPassword());
             String passwdBDDString = new String(passwdBDDTexte.getPassword());
-        }
-        else if (ae.getSource() == connectlocal){
-            System.out.println("Oui");
-            ArrayList<String> liste;
-            
-            try{
-                //Connexion à la base de données
-                Connexion co = new Connexion ("hopital","root","root");
-                  
-                System.out.println("Connection réussie");
-                
-                //On lance la page d'après
-                EcranPrincipal ep = new EcranPrincipal();
-                
-                /*
-                //Affichage de ce qu'il y a dans la colonne Employés
-                ArrayList<String>tab = new ArrayList<>();
-                tab = co.remplirChampsRequete("select * from employe");
-                
-                //On affiche les éléments du tableau
-                Iterator it = tab.iterator();
-                while(it.hasNext()){
-                    System.out.println(it.next());
-                }
-                */
-            }    
-            catch (Exception e ){
-                e.printStackTrace();
-            }
-        }
+        
+      }
+      else if (Source == connectlocal) {
+          try {
+              ArrayList<String> liste;
+              
+              
+              //Connexion au serveur local (Nom bdd, user bdd, mdp bdd)
+              Connexion maconnexion = new Connexion(nameBDDTexte.getText(), "root", "root");
+              System.out.println("hello");
+              EcranPrincipal ep = new EcranPrincipal(maconnexion.getConn());
+              this.dispose();
+          } catch (SQLException ex) {
+              Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+          }
+              
+         
+         
+    }
     }
 
     @Override
