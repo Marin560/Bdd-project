@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -46,8 +48,8 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
         //Création de nos variables 
         //Bouttons
         connectECE = new JButton("Connexion ECE");
-        executer = new JButton("Connexion Locale");
-        connectlocal = new JButton("Executer");
+        executer = new JButton("Executer"); 
+        connectlocal = new JButton("Connexion Locale");
         
         //Textes
         nameECETexte = new JTextField();
@@ -108,7 +110,35 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(ae.getSource()== connectECE){
+            ArrayList<String> liste;
+            
+            String passwdECEString = new String(passwdECETexte.getPassword());
+            String passwdBDDString = new String(passwdBDDTexte.getPassword());
+        }
+        else if (ae.getSource() == connectlocal){
+            System.out.println("Oui");
+            ArrayList<String> liste;
+            
+            try{
+                //Connexion à la base de données
+                Connexion co = new Connexion ("hopital","root","root");
+
+                //Affichage de ce qu'il y a dans la colonne Employés
+                ArrayList<String>tab = new ArrayList<>();
+                tab = co.remplirChampsRequete("select * from employe");
+                
+                //On affiche les éléments du tableau
+                Iterator it = tab.iterator();
+                while(it.hasNext()){
+                    System.out.println(it.next());
+                }
+            }    
+            catch (Exception e ){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

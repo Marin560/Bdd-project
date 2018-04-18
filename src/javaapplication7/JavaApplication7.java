@@ -29,7 +29,7 @@ public class JavaApplication7 {
     Accueil oc = new Accueil();
     //Fenetre fn = new Fenetre();  
         
-    try {
+
         /*
         //Connection to database
         Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:8889/hopital", "root", "root");
@@ -45,29 +45,7 @@ public class JavaApplication7 {
             System.out.println(myRs.getString("nom")+ " , "+myRs.getString("prenom")+ " , "+myRs.getString("adresse"));
         }
         */
-        
-        /*
-        //Connexion à la base de données
-        Connexion co = new Connexion ("hopital","root","root");
-                
-        //Affichage de ce qu'il y a dans la colonne Employés
-        ArrayList<String>tab = new ArrayList<String>();
-        tab = co.remplirChampsRequete("select * from employe");
-        
-        
-        //On affiche les éléments du tableau
-        Iterator it = tab.iterator();
-        while(it.hasNext()){
-            System.out.println(it.next());
-        }
-        */
-        
-        
-    }
-    catch (Exception e ){
-        e.printStackTrace();
-    }
-    }
-        
+
     
+}
 }
