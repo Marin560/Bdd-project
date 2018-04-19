@@ -39,19 +39,18 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
     public String namebdd;
     private Connection conn;
     
-    public EcranPrincipal(Connection s) throws SQLException{ //Constructeur
-       // creation par heritage de la fenetre 
+    public EcranPrincipal(Connection maConnexion) throws SQLException{ //Constructeur
+        // creation par heritage de la fenetre 
         super("Logiciel de Gestion du Centre Hospitalier"); 
-        this.conn = s;
+        this.conn = maConnexion;
         
         // mise en page (layout) de la fenetre visible 
         setLayout(new BorderLayout()); 
-        setSize(1000,1000);
-        //setBounds(0, 0, 400, 400); 
+        setSize(800,800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
         setResizable(true); 
-        setVisible(true); 
         
+        //On crée le panneau déroulant
         combo.addItem("Chambre");
         combo.addItem("Docteur");
         combo.addItem("Employe");
@@ -64,7 +63,7 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
         combo.addActionListener(this);
          
         
-         JScrollPane jScrollPane = new JScrollPane();
+        JScrollPane jScrollPane = new JScrollPane();
         jScrollPane.setViewportView(jtable);
         
         // Création des boutons 
@@ -72,10 +71,7 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
         MaJ = new JButton ("Mise à Jour des données"); 
         Reporting = new JButton ("Reporting"); 
         //Connexion = new JButton("Connexion"); 
-        
-        
-        
-        
+
         
         DefaultTableModel table = new DefaultTableModel();
         Statement stmt = conn.createStatement();
@@ -87,7 +83,7 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
             table.addColumn(Requete.getString("column_name"));
         }
        
-     jtable.setModel(table);
+        jtable.setModel(table);
         
         Requete = stmt.executeQuery("SELECT * FROM chambre");
         while(Requete.next())
@@ -107,27 +103,24 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
         
         p0.setLayout(new GridLayout(1, 1)); 
         p1.setLayout(new GridLayout(0,1)); 
-        
         p2.setLayout(new GridLayout(10, 1)); 
-        
         
         p0.add(Recherche); 
         p0.add(MaJ); 
         p0.add(Reporting); 
-        
-         p2.add(combo);
+        p2.add(combo);
         p1.add(jScrollPane); 
 
         // disposition geographique des panneaux 
-         this.getContentPane().add(p2, BorderLayout. CENTER);
+        this.getContentPane().add(p2, BorderLayout. CENTER);
         this.getContentPane().add(p1, BorderLayout.SOUTH);
         this.getContentPane().add(p0, BorderLayout.NORTH);
         add("North", p0); 
         add("Center", p2); 
         add("South", p1); 
-         
-
-         
+        
+        setVisible(true); 
+        
     }  
   
 

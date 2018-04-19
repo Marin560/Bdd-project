@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -53,14 +54,13 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
         setVisible(true);
 
         // creation des boutons
-        
         connectECE = new JButton("Connexion ECE");
         connectlocal = new JButton("Connexion locale");
         executer = new JButton("Executer");
         
         
-        // creation des textes
         
+        // creation des textes
         nameECETexte = new JTextField();
         passwdECETexte = new JPasswordField(8);
         loginBDDTexte = new JTextField();
@@ -68,7 +68,6 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
         nameBDDTexte = new JTextField();
         
         //Création des labels
-        
         nameECE = new JLabel("login ECE :", JLabel.CENTER);
         passwdECE = new JLabel("password ECE :", JLabel.CENTER);
         loginBDD = new JLabel("login base :", JLabel.CENTER);
@@ -76,7 +75,6 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
         nameBDD = new JLabel("nom base :", JLabel.CENTER);
         
         // Création des panneaux
-        
         p0 = new JPanel();
         p1 = new JPanel();
         p2 = new JPanel();
@@ -101,10 +99,6 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
         p0.add(connectECE);
         p0.add(connectlocal);
  
-         
-       
-
- 
         // ajout des listeners
         connectECE.addActionListener(this);
         executer.addActionListener(this);
@@ -127,30 +121,34 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {      
-      if(e.getSource() == connectECE){
+      if(e.getSource() == connectECE){ //Si on se connecte à la base de l'ece
           ArrayList<String> liste;
             
             String passwdECEString = new String(passwdECETexte.getPassword());
             String passwdBDDString = new String(passwdBDDTexte.getPassword());
         
       }
-      else if (e.getSource() == connectlocal) {
+      else if (e.getSource() == connectlocal) { //Si on se connecte en local
           try {
+              //On crée un ArrayList pour récupérer les données
               ArrayList<String> liste;
               
               //Connexion au serveur local (Nom bdd, user bdd, mdp bdd)
-              Connexion maconnexion = new Connexion(nameBDDTexte.getText(), "root", "root");
-              System.out.println("hello");
-              EcranPrincipal ep = new EcranPrincipal(maconnexion.getConn());
+              //Connexion maConnexion = new Connexion(nameBDDTexte.getText(), "root", "root");
+              Connexion maConnexion = new Connexion("hopital","root","root");
+              
+              //On lance l'écran d'après pour gérer la base de données
+              EcranPrincipal ep = new EcranPrincipal(maConnexion.getConn());
               this.dispose();
+ 
           } catch (SQLException ex) {
+              //On fait apparaître un pop up pour dire que quelque chose est faux
+              JOptionPane.showMessageDialog(this, "Erreur Connexion - Verifier Serveurs ou Identifiants");
               Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
           } catch (ClassNotFoundException ex) {
               Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
           }
               
-         
-         
     }
     }
 
