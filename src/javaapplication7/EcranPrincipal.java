@@ -35,8 +35,13 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
     private JButton Recherche, MaJ, Reporting; //Bouttons de la fenêtre
     //private MonBouton Recherche, MaJ, Reporting;
     private JPanel p0, p1, p2, p3; 
+    
+    //Création de la comboBox (barre de selection)
     private JComboBox combo = new JComboBox();
+    
+    // Création du tableau déroulant
     public JTable jtable = new JTable();
+    
     public String namebdd;
     private Connection conn;
     
@@ -81,7 +86,10 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         DefaultTableModel table = new DefaultTableModel();
         Statement stmt = conn.createStatement();
         
+        
+        //Recherche des noms des colonnes pour la table "chambre"
         ResultSet Requete = stmt.executeQuery("SELECT column_name FROM information_schema.columns WHERE table_name = 'chambre'");
+        
         while(Requete.next())
         {
             //System.out.println(Requete.getString("column_name"));
@@ -123,6 +131,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         add("North", p0); 
         add("Center", p2); 
         add("South", p1); 
+        this.pack();
         
     }  
   
