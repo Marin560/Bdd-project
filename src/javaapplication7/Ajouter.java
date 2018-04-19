@@ -6,6 +6,7 @@
 package javaapplication7;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,6 +48,7 @@ public class Ajouter extends Fenetre implements ActionListener{
         combo = new JComboBox();
         
         //Création du menu déroulant
+        combo.addItem("Choisissez une catégorie");
         combo.addItem("Patient");
         combo.addItem("Docteur");
         combo.addItem("Employe");
@@ -72,11 +74,17 @@ public class Ajouter extends Fenetre implements ActionListener{
         setAlwaysOnTop(true);
        
         add(panel_combo, BorderLayout.CENTER);
-        
+        add(panel_bouton,BorderLayout.SOUTH);
         setVisible(true);
         
     }
-
+    
+    public void update(){
+        add(panel_bouton,BorderLayout.SOUTH);
+        System.out.println("oui");
+    }
+    
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -86,6 +94,12 @@ public class Ajouter extends Fenetre implements ActionListener{
                 System.out.println("Patient sélectionnée");
                 
                 //On affiche les champs à remplir pour ajouter une nouveau patient
+                //On ajoute le champ à remplir au Panel correspondant
+                JButton jb = new JButton("remplir");
+                panel_bouton.add(jb);
+                //update();
+                revalidate();
+                
                 //Numéro 
                 //Nom
                 //Prénom
