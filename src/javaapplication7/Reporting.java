@@ -5,14 +5,11 @@
  */
 package javaapplication7;
 
+
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +17,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jfree.data.general.DefaultPieDataset;

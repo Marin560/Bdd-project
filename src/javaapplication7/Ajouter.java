@@ -69,8 +69,6 @@ public class Ajouter extends Fenetre implements ActionListener{
         panel_combo.add(label);
         panel_combo.add(combo);
         
-        
-        
         setAlwaysOnTop(true);
        
         add(panel_combo, BorderLayout.CENTER);
