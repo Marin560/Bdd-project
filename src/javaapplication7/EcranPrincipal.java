@@ -47,7 +47,8 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
     
     public EcranPrincipal(Connection maConnexion) throws SQLException{ //Constructeur
         // creation par heritage de la fenetre 
-        super("Logiciel de Gestion du Centre Hospitalier"); 
+        super("Logiciel de Gestion du Centre Hospitalier",800,750); 
+        setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
 
        this.conn = maConnexion;
@@ -114,9 +115,11 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         p2 = new JPanel();  
         p3 = new JPanel();
         
+        
         p0.setLayout(new GridLayout(1, 1)); 
         p1.setLayout(new GridLayout(0,1)); 
-        p2.setLayout(new GridLayout(10, 1)); 
+        //p2.setLayout(new GridLayout(10, 1)); 
+        
         
         p0.add(Recherche); 
         p0.add(MaJ); 
