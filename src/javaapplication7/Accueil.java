@@ -138,7 +138,6 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
           try {
               ArrayList<String> liste;
               
-              
               //Connexion au serveur local (Nom bdd, user bdd, mdp bdd)
               Connexion maconnexion = new Connexion(nameBDDTexte.getText(), "root", "root");
               System.out.println("hello");
