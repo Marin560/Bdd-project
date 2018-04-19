@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Roxane
  */
   
-public class EcranPrincipal extends JFrame implements ActionListener, ItemListener{ 
+public class EcranPrincipal extends Fenetre implements ActionListener, ItemListener{ 
      
     private JButton Recherche, MaJ, Reporting; //Bouttons de la fenêtre
     private JPanel p0, p1, p2, p3; 
@@ -44,11 +44,6 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
         super("Logiciel de Gestion du Centre Hospitalier"); 
         this.conn = maConnexion;
         
-        // mise en page (layout) de la fenetre visible 
-        setLayout(new BorderLayout()); 
-        setSize(800,800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
-        setResizable(true); 
         
         //On crée le panneau déroulant
         combo.addItem("Chambre");
@@ -59,7 +54,6 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
         combo.addItem("Malade");
         combo.addItem("Service");
         combo.addItem("Soigne");
-        
         combo.addActionListener(this);
          
         
@@ -69,9 +63,11 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
         // Création des boutons 
         Recherche = new JButton("Recherche d'informations"); 
         MaJ = new JButton ("Mise à Jour des données"); 
-        Reporting = new JButton ("Reporting"); 
-        //Connexion = new JButton("Connexion"); 
-
+        Reporting = new JButton ("Reporting");
+        
+        Recherche.addActionListener(this);
+        MaJ.addActionListener(this);
+        Reporting.addActionListener(this);
         
         DefaultTableModel table = new DefaultTableModel();
         Statement stmt = conn.createStatement();
@@ -119,7 +115,6 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
         add("Center", p2); 
         add("South", p1); 
         
-        setVisible(true); 
         
     }  
   
@@ -131,8 +126,7 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods,choose Tools | Templates. 
      Object source = e.getSource();
      
-     if (source == combo)
-     {
+     if (source == combo){
          try {
              DefaultTableModel table = new DefaultTableModel();
              Statement stmt = conn.createStatement();
@@ -192,10 +186,16 @@ public class EcranPrincipal extends JFrame implements ActionListener, ItemListen
          } catch (SQLException ex) {
              Logger.getLogger(EcranPrincipal.class.getName()).log(Level.SEVERE, null, ex);
          }
+        
+     
+     }
+     else if(source == MaJ){
+         System.out.println("ite");
+         MisesAJour maj = new MisesAJour();
      }
          
      
-         }
+  }
     
     
  

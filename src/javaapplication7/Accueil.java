@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,7 +29,7 @@ import javax.swing.JTextField;
  *
  * @author Roxane
  */
-public class Accueil extends JFrame implements ActionListener, ItemListener {
+public class Accueil extends Fenetre implements ActionListener, ItemListener {
     
     private Connection maconnexion; //Ajout d'une nouvelle connexion
     private JLabel nameECE, passwdECE, loginBDD, passwdBDD, nameBDD;
@@ -46,18 +47,10 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
         
         super("Accueil");
         
-         // mise en page (layout) de la fenetre visible
-        setLayout(new BorderLayout());
-        setBounds(0, 0, 400, 400);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(true);
-        setVisible(true);
-
         // creation des boutons
         connectECE = new JButton("Connexion ECE");
         connectlocal = new JButton("Connexion locale");
         executer = new JButton("Executer");
-        
         
         
         // creation des textes
@@ -100,7 +93,7 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
         p0.add(connectlocal);
  
         // ajout des listeners
-        connectECE.addActionListener(this);
+       
         executer.addActionListener(this);
         connectlocal.addActionListener(this);
         nameECETexte.addActionListener(this);
@@ -117,6 +110,8 @@ public class Accueil extends JFrame implements ActionListener, ItemListener {
         add("Center", p2);
         add("South", p3); 
          
+        //On affiche finalement la fenêtre
+        setVisible(true);
     }
 
     @Override
