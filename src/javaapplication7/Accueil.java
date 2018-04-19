@@ -46,6 +46,8 @@ public class Accueil extends Fenetre implements ActionListener, ItemListener {
     public Accueil(){
         
         super("Accueil");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
+
         
         // creation des boutons
         connectECE = new JButton("Connexion ECE");

@@ -6,11 +6,13 @@
 package javaapplication7;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -22,6 +24,7 @@ public class Ajouter extends Fenetre implements ActionListener{
     //Ajouter des infos
     private JButton chambre, employe, malade;
     private JPanel panel_bouton, panel_combo;
+    private JLabel label ;
     
     //Menu déroulant
     private JComboBox combo;
@@ -39,6 +42,7 @@ public class Ajouter extends Fenetre implements ActionListener{
         chambre = new JButton("Ajouter une chambre");
         employe = new JButton ("Ajouter un employe");
         malade = new JButton("Ajouter un malade");
+        label = new JLabel("Choisissez votre ajout");
         
         combo = new JComboBox();
         
@@ -56,15 +60,19 @@ public class Ajouter extends Fenetre implements ActionListener{
         panel_bouton = new JPanel();
         panel_combo = new JPanel();
         
+        //panel_combo.setLayout(new GridLayout(10, 110)); 
+        
         //Ajout aux panels
         //panel_bouton.add(chambre);
         //panel_bouton.add(employe);
         //panel_bouton.add(malade);
+        panel_combo.add(label);
         panel_combo.add(combo);
         
-        setAlwaysOnTop(true);
         
-        add(panel_bouton, BorderLayout.NORTH);
+        
+        setAlwaysOnTop(true);
+       
         add(panel_combo, BorderLayout.CENTER);
         
         setVisible(true);

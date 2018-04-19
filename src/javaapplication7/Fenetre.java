@@ -22,9 +22,13 @@ public class Fenetre extends JFrame {
         setLayout(new BorderLayout());     
         //Taille de la fenêtre
         setSize(800,700); 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
         //place la fenêtre au centre de l'écran
         setLocationRelativeTo(null);
+        
+        //Ajout de l'icône de la fenêtre
+        ImageIcon icone = new ImageIcon("images/hopital.jpeg");
+        setIconImage(icone.getImage());
+        
         //Affiche la fenêtre
         setVisible(true);
          
@@ -36,7 +40,6 @@ public class Fenetre extends JFrame {
         setLayout(new BorderLayout());     
         //Taille de la fenêtre
         setSize(800,700); 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
         //place la fenêtre au centre de l'écran
         setLocationRelativeTo(null);
         
@@ -54,7 +57,6 @@ public class Fenetre extends JFrame {
         setLayout(new BorderLayout());     
         //Taille de la fenêtre
         setSize(taille_x,taille_y); 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
         //place la fenêtre au centre de l'écran
         setLocationRelativeTo(null);
         
