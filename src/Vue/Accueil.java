@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication7;
+package Vue;
 
+import Controleur.Connexion;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -25,11 +26,12 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+
 /**
  *
  * @author Roxane
  */
-public class Accueil extends Fenetre implements ActionListener, ItemListener {
+public class Accueil extends Fenetre implements ActionListener {
     
     private Connection maconnexion; //Ajout d'une nouvelle connexion
     private JLabel nameECE, passwdECE, loginBDD, passwdBDD, nameBDD;
@@ -125,32 +127,23 @@ public class Accueil extends Fenetre implements ActionListener, ItemListener {
             String passwdBDDString = new String(passwdBDDTexte.getPassword());
         
       }
-      else if (e.getSource() == connectlocal) { //Si on se connecte en local
-          try {
-              //On crée un ArrayList pour récupérer les données
-              ArrayList<String> liste;
-              
-              //Connexion au serveur local (Nom bdd, user bdd, mdp bdd)
-              //Connexion maConnexion = new Connexion(nameBDDTexte.getText(), "root", "root");
-              Connexion maConnexion = new Connexion("hopital","root","root");
-              
-              //On lance l'écran d'après pour gérer la base de données
-              EcranPrincipal ep = new EcranPrincipal(maConnexion.getConn());
-              this.dispose();
- 
+      else if (e.getSource() == connectlocal) { try {
+          //On crée un ArrayList pour récupérer les données
+          ArrayList<String> liste;
+          //Connexion au serveur local (Nom bdd, user bdd, mdp bdd)
+          Connexion maConnexion = new Connexion(nameBDDTexte.getText(), "root", "root");
+          // Connection maConnexion = new Connection("hopital","root","root");
+          //On lance l'écran d'après pour gérer la base de données
+          EcranPrincipal ep = new EcranPrincipal(maConnexion.getConn());
+          this.dispose();
           } catch (SQLException ex) {
-              //On fait apparaître un pop up pour dire que quelque chose est faux
-              JOptionPane.showMessageDialog(this, "Erreur Connexion - Verifier Serveurs ou Identifiants");
               Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
           } catch (ClassNotFoundException ex) {
               Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
           }
+          
               
     }
     }
 
-    @Override
-    public void itemStateChanged(ItemEvent ie) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

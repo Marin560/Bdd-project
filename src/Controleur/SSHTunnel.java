@@ -1,4 +1,4 @@
-package javaapplication7;
+package Controleur;
 
 import com.jcraft.jsch.*;
 

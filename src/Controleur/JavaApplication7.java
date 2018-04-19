@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication7;
+package Controleur;
 
+import Vue.Accueil;
 import java.sql.SQLException;
 
-import javaapplication7.Connexion;
 
 import java.sql.*;
 import java.util.ArrayList;

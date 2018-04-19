@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication7;
+package Vue;
 
 
+
+
+
+import Controleur.ButtonReportController;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -20,16 +24,26 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jfree.data.general.DefaultPieDataset;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
+import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import org.jfree.data.general.DefaultPieDataset;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import org.jfree.chart.*;
+import org.jfree.chart.plot.*;
+import org.jfree.data.*;
 
 /**
  *
  * @author Roxane
  */
-public class Reporting extends Fenetre implements ActionListener{
+public class Reporting extends Fenetre {
     
     private JButton MparS, DparS, LparS, IparS, MparD, SuparS;
      private Connection conn;
-     private JPanel p0, p1, p2;
+     private JPanel p0, p1;
     
     public Reporting(Connection maConnexion){
         
@@ -43,11 +57,19 @@ public class Reporting extends Fenetre implements ActionListener{
        IparS = new JButton("Nbr d'Infirmiers par Service");
        MparD = new JButton("Nbr de Malades par Docteurs");
        SuparS = new JButton("Nbr de Surveillants par Service");
+       
+       
+       MparS.addActionListener(new ButtonReportController(this, conn));
+       DparS.addActionListener(new ButtonReportController(this, conn));
+       LparS.addActionListener(new ButtonReportController(this, conn));
+       IparS.addActionListener(new ButtonReportController(this, conn));
+       MparD.addActionListener(new ButtonReportController(this, conn));
+       SuparS.addActionListener(new ButtonReportController(this, conn));
         //Création des panneaux
         
         p0 = new JPanel();
         p1 = new JPanel();
-        p2 = new JPanel();
+       
         
         // Ajout des bouteaux dans le p0
         
@@ -64,37 +86,30 @@ public class Reporting extends Fenetre implements ActionListener{
         this.getContentPane().add(p0, BorderLayout. NORTH);
         this.getContentPane().add(p1, BorderLayout. CENTER);
     }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-    //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     
-    addWindowListener(new WindowAdapter() {
-    public void windowClosing(WindowEvent e) {
-    dispose();
-    System.exit(0);
-    }
-    });
-    
-    p2 = new JPanel(new BorderLayout());
-    setContentPane(p2);
-    setSize(400, 250);
-    
-    DefaultPieDataset pieDataset = new DefaultPieDataset();
-
-    pieDataset.setValue("Valeur1", new Integer(27));
-    pieDataset.setValue("Valeur2", new Integer(10));
-    pieDataset.setValue("Valeur3", new Integer(50));
-    pieDataset.setValue("Valeur4", new Integer(5));
- 
-
-    JFreeChart pieChart = ChartFactory.createPieChart("Test camembert",pieDataset, true, true, true);
-
-    ChartPanel cPanel = new ChartPanel(pieChart);
-    p2.add(cPanel);
+    public JButton getMparS(){
+        return MparS;
     }
     
+    public JButton getDparS(){
+        return DparS;
+    }
+        
+    public JButton getLparS(){
+        return LparS;
+    }
     
+    public JButton getIparS(){
+        return IparS;
+    }
+    
+    public JButton getMparD(){
+        return MparD;
+    }
+    
+    public JButton getSuparS(){
+        return SuparS;
+    }
     
     
 }

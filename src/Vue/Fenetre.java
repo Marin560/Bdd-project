@@ -1,4 +1,4 @@
-package javaapplication7;
+package Vue;
 
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;

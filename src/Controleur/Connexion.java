@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication7;
+package Controleur;
 
 /*
  * 
@@ -214,7 +214,7 @@ public class Connexion {
         stmt.executeUpdate(requeteMaj);
     }
     
-    Connection getConn(){
+    public Connection getConn(){
         return conn;
     }
 }
