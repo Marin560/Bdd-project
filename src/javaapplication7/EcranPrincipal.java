@@ -33,6 +33,7 @@ import javax.swing.table.DefaultTableModel;
 public class EcranPrincipal extends Fenetre implements ActionListener, ItemListener{ 
      
     private JButton Recherche, MaJ, Reporting; //Bouttons de la fenêtre
+    //private MonBouton Recherche, MaJ, Reporting;
     private JPanel p0, p1, p2, p3; 
     private JComboBox combo = new JComboBox();
     public JTable jtable = new JTable();
@@ -62,8 +63,14 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         
         // Création des boutons 
         Recherche = new JButton("Recherche d'informations"); 
-        MaJ = new JButton ("Mise à Jour des données"); 
+        MaJ = new JButton ("Ajouter Element"); 
         Reporting = new JButton ("Reporting");
+        
+        /*
+        Recherche = new MonBouton("Recherche d'information");
+        MaJ = new MonBouton("mise à jour");
+        Reporting = new MonBouton("reporting");
+        */
         
         Recherche.addActionListener(this);
         MaJ.addActionListener(this);
@@ -115,7 +122,6 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         add("Center", p2); 
         add("South", p1); 
         
-        
     }  
   
 
@@ -139,7 +145,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
                      table.addColumn(Requete.getString("column_name"));
                  }
              
-             jtable.setModel(table);
+                jtable.setModel(table);
              
       
                  Requete = stmt.executeQuery("SELECT * FROM "+combo.getSelectedItem()+"");
@@ -191,7 +197,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
      }
      else if(source == MaJ){
          System.out.println("ite");
-         MisesAJour maj = new MisesAJour();
+         Ajouter ajout = new Ajouter();
      }
          
      
