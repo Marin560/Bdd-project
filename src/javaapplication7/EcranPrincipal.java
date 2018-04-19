@@ -50,7 +50,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         super("Logiciel de Gestion du Centre Hospitalier"); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
 
-        this.conn = maConnexion;
+       this.conn = maConnexion;
         
         
         //On crée le panneau déroulant
@@ -84,7 +84,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         Reporting.addActionListener(this);
         
         DefaultTableModel table = new DefaultTableModel();
-        Statement stmt = conn.createStatement();
+        Statement stmt = maConnexion.createStatement();
         
         
         //Recherche des noms des colonnes pour la table "chambre"
@@ -206,12 +206,14 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         
      
      }
-     else if(source == MaJ){
+     if(source == MaJ){
          System.out.println("ite");
          Ajouter ajout = new Ajouter();
      }
          
-     
+     if(source == Reporting){
+         Reporting report = new Reporting(conn);
+     }
   }
     
     

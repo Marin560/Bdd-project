@@ -154,4 +154,3 @@ public class Accueil extends Fenetre implements ActionListener, ItemListener {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
-//caca
