@@ -128,17 +128,26 @@ public class Accueil extends Fenetre implements ActionListener {
         
       }
       else if (e.getSource() == connectlocal) { try {
+          
           //On crée un ArrayList pour récupérer les données
           ArrayList<String> liste;
           //Connexion au serveur local (Nom bdd, user bdd, mdp bdd)
-          Connexion maConnexion = new Connexion(nameBDDTexte.getText(), "root", "root");
+          
+          //Connexion maConnexion = new Connexion(nameBDDTexte.getText(), "root", "root");
+          Connexion maConnexion = new Connexion ("hopital","root","root");
           // Connection maConnexion = new Connection("hopital","root","root");
           //On lance l'écran d'après pour gérer la base de données
+          
           EcranPrincipal ep = new EcranPrincipal(maConnexion.getConn());
           this.dispose();
-          } catch (SQLException ex) {
-              Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
+          
+      } catch (SQLException ex) {
+            //Ajout d'une popup pour dire qu'il y a eu un problème
+            JOptionPane.showMessageDialog(this,"Erreur: " + ex,"Titre : exception",JOptionPane.ERROR_MESSAGE);
+
+            Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
           } catch (ClassNotFoundException ex) {
+              JOptionPane.showMessageDialog(this,"Erreur: " + ex,"Titre : exception",JOptionPane.ERROR_MESSAGE);
               Logger.getLogger(Accueil.class.getName()).log(Level.SEVERE, null, ex);
           }
           

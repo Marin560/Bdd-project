@@ -41,7 +41,7 @@ import org.jfree.data.*;
  */
 public class Reporting extends Fenetre {
     
-    private JButton MparS, DparS, LparS, IparS, MparD, SuparS;
+    private JButton MparS, DparS, SparI, DiffMetiers, MparD, IparS;
      private Connection conn;
      private JPanel p0, p1;
     
@@ -49,22 +49,24 @@ public class Reporting extends Fenetre {
         
         super ("Reporting");
         
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
+        
         this.conn = maConnexion;
         
        MparS = new JButton("Nbr Malades par Service");
        DparS = new JButton("Nbr de Docteur par Spécialité");
-       LparS = new JButton("Nbr de Lits par Service");
-       IparS = new JButton("Nbr d'Infirmiers par Service");
+       SparI = new JButton("Salaire des Infirmiers");
+       DiffMetiers = new JButton("Proprortions des différents métiers");
        MparD = new JButton("Nbr de Malades par Docteurs");
-       SuparS = new JButton("Nbr de Surveillants par Service");
+       IparS = new JButton("Nbr d'infirmiers par Service");
        
        
        MparS.addActionListener(new ButtonReportController(this, conn));
        DparS.addActionListener(new ButtonReportController(this, conn));
-       LparS.addActionListener(new ButtonReportController(this, conn));
-       IparS.addActionListener(new ButtonReportController(this, conn));
+       SparI.addActionListener(new ButtonReportController(this, conn));
+       DiffMetiers.addActionListener(new ButtonReportController(this, conn));
        MparD.addActionListener(new ButtonReportController(this, conn));
-       SuparS.addActionListener(new ButtonReportController(this, conn));
+       IparS.addActionListener(new ButtonReportController(this, conn));
         //Création des panneaux
         
         p0 = new JPanel();
@@ -75,10 +77,10 @@ public class Reporting extends Fenetre {
         
         p0.add(MparS);
         p0.add(DparS);
-        p0.add(LparS);
-        p1.add(IparS);
+        p0.add(SparI);
+        p1.add(DiffMetiers);
         p1.add(MparD);
-        p1.add(SuparS);
+        p1.add(IparS);
         
      
         
@@ -94,21 +96,23 @@ public class Reporting extends Fenetre {
     public JButton getDparS(){
         return DparS;
     }
-        
-    public JButton getLparS(){
-        return LparS;
+
+    public JButton getSparI(){
+        return SparI;
     }
     
-    public JButton getIparS(){
-        return IparS;
+            
+    public JButton getDiffMetiers(){
+        return DiffMetiers;
     }
+    
     
     public JButton getMparD(){
         return MparD;
     }
     
-    public JButton getSuparS(){
-        return SuparS;
+    public JButton getIparS(){
+        return IparS;
     }
     
     

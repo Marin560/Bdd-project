@@ -29,33 +29,36 @@ import org.jfree.data.*;
  */
 public class Action_Reporting extends JFrame {
     
-    private JPanel p2;
+        
+    private JPanel p0;
+    private int Nombre[];
+    private String[] Noms;
+    private String titre;
+    private String choix;
     
-    public Action_Reporting(){
     
-       addWindowListener(new WindowAdapter() {
-    public void windowClosing(WindowEvent e) {
-    dispose();
-    System.exit(0);
-    }
-    });
+    public Action_Reporting(int pNombre[], String pNoms[], String ptitre, String pchoix){
     
-    p2 = new JPanel(new BorderLayout());
-    setContentPane(p2);
+    p0 = new JPanel(new BorderLayout());
+    setContentPane(p0);
     setSize(400, 250);
+    
+    Nombre=pNombre;
+    Noms = pNoms;
+    titre=ptitre;
+    choix=pchoix;
     
     DefaultPieDataset pieDataset = new DefaultPieDataset();
 
-    pieDataset.setValue("Valeur1", new Integer(27));
-    pieDataset.setValue("Valeur2", new Integer(10));
-    pieDataset.setValue("Valeur3", new Integer(50));
-    pieDataset.setValue("Valeur4", new Integer(5));
- 
-
-    JFreeChart pieChart = ChartFactory.createPieChart("Test camembert",pieDataset, true, true, true);
+    for(int i=0; i<Nombre.length; i++){
+        
+        pieDataset.setValue(Noms[i], Nombre[i]);
+    }
+    
+    JFreeChart pieChart = ChartFactory.createPieChart3D(titre,pieDataset, true, true, true);
 
     ChartPanel cPanel = new ChartPanel(pieChart);
-    p2.add(cPanel);
+    p0.add(cPanel);
     
     }
 }

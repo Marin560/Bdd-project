@@ -25,8 +25,9 @@ public class Ajouter extends Fenetre implements ActionListener{
     //Bouttons 
     //Ajouter des infos
     private JButton chambre, employe, malade;
-    private JPanel panel_bouton, panel_combo;
+    private JPanel panel_bouton, panel_combo,panel_ajout;
     private JLabel label ;
+    
     
     //Menu déroulant
     private JComboBox combo;
@@ -62,6 +63,7 @@ public class Ajouter extends Fenetre implements ActionListener{
     
         panel_bouton = new JPanel();
         panel_combo = new JPanel();
+         panel_ajout= new JPanel();
         
         //panel_combo.setLayout(new GridLayout(10, 110)); 
         
@@ -98,11 +100,11 @@ public class Ajouter extends Fenetre implements ActionListener{
                 panel_bouton.removeAll();
                 
                 //On ajoute deux panels 
-                JPanel panel_ajout1= new JPanel();
-                JPanel panel_ajout2= new JPanel();
+               
+                //JPanel panel_ajout2= new JPanel();
                 
                 //On affiche les champs à remplir sur le nouveau panel
-                JTextField nom = new JTextField("Nom");
+                JTextField nom = new JTextField("ssssssss");
                 JTextField prenom = new JTextField("Prenom");
                 JTextField adresse = new JTextField("Adresse");
                 JTextField tel = new JTextField("Telephone");
@@ -110,14 +112,15 @@ public class Ajouter extends Fenetre implements ActionListener{
                 //JButton jb = new JButton("remplir");
                 
                 //panel_ajout1.add(jb);
-                panel_ajout1.add(nom);
-                panel_ajout1.add(prenom);
-                panel_ajout2.add(adresse);
-                panel_ajout2.add(tel);
+                panel_ajout.add(nom);
+                panel_ajout.add(prenom);
+                panel_ajout.add(adresse);
+                panel_ajout.add(tel);
                                 
-                panel_bouton.add(panel_ajout1,BorderLayout.EAST);
-                panel_bouton.add(panel_ajout2,BorderLayout.WEST);
-
+                //panel_bouton.add(panel_ajout1,BorderLayout.EAST);
+                //panel_bouton.add(panel_ajout2,BorderLayout.WEST);
+                
+                add(panel_ajout,BorderLayout.WEST);
                 //update();
                 revalidate();
                 
@@ -132,7 +135,7 @@ public class Ajouter extends Fenetre implements ActionListener{
             else if(combo.getSelectedItem() == "Docteur"){
                 System.out.println("Doc sélectionnée");
                 
-                panel_bouton.removeAll();
+                panel_ajout.removeAll();
                 revalidate();
                 
             }
