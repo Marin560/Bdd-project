@@ -61,4 +61,8 @@ public class Action_Reporting extends JFrame {
     p0.add(cPanel);
     
     }
+    
+    public JPanel getp0(){
+        return p0;
+    }
 }

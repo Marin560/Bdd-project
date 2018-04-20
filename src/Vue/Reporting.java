@@ -43,7 +43,7 @@ public class Reporting extends Fenetre {
     
     private JButton MparS, DparS, SparI, DiffMetiers, MparD, IparS;
      private Connection conn;
-     private JPanel p0, p1;
+     private JPanel p0, p1, p2;
     
     public Reporting(Connection maConnexion){
         
@@ -70,7 +70,10 @@ public class Reporting extends Fenetre {
         //Création des panneaux
         
         p0 = new JPanel();
-        p1 = new JPanel();
+        //p1 = new JPanel();
+        p2 = new JPanel();
+        
+        p0.setLayout(new GridLayout(2, 3, -20, 20)); 
        
         
         // Ajout des bouteaux dans le p0
@@ -78,15 +81,15 @@ public class Reporting extends Fenetre {
         p0.add(MparS);
         p0.add(DparS);
         p0.add(SparI);
-        p1.add(DiffMetiers);
-        p1.add(MparD);
-        p1.add(IparS);
+        p0.add(DiffMetiers);
+        p0.add(MparD);
+        p0.add(IparS);
         
      
         
         // disposition geographique des panneaux 
         this.getContentPane().add(p0, BorderLayout. NORTH);
-        this.getContentPane().add(p1, BorderLayout. CENTER);
+        this.getContentPane().add(p2, BorderLayout. CENTER);
     }
     
     public JButton getMparS(){
@@ -113,6 +116,11 @@ public class Reporting extends Fenetre {
     
     public JButton getIparS(){
         return IparS;
+    }
+    
+     public JPanel getp2()
+    {
+        return p2;
     }
     
     

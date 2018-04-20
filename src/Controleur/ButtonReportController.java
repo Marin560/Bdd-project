@@ -68,7 +68,12 @@ public class ButtonReportController implements ActionListener {
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+            //tpc.setVisible(true);
                 
                 
                 
@@ -120,7 +125,13 @@ public class ButtonReportController implements ActionListener {
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+
+            //tpc.setVisible(true);
                 
                 
                 
@@ -158,7 +169,12 @@ public class ButtonReportController implements ActionListener {
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+            //tpc.setVisible(true);
                 
                 
                 
@@ -195,7 +211,12 @@ public class ButtonReportController implements ActionListener {
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+            //tpc.setVisible(true);
                 
                 
                 
@@ -247,7 +268,12 @@ public class ButtonReportController implements ActionListener {
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+            //tpc.setVisible(true);
                 
                 
                 
@@ -289,7 +315,13 @@ public class ButtonReportController implements ActionListener {
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+            
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+            //tpc.setVisible(true);
                 
                 
                 
