@@ -6,6 +6,8 @@
 package Vue;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -25,9 +27,9 @@ public class Ajouter extends Fenetre implements ActionListener{
     //Bouttons 
     //Ajouter des infos
     private JButton chambre, employe, malade;
-    private JPanel panel_bouton, panel_combo,panel_ajout;
+    private JPanel panel_content,panel_1,panel_2;
     private JLabel label ;
-    
+    private CardLayout cd;
     
     //Menu déroulant
     private JComboBox combo;
@@ -41,43 +43,39 @@ public class Ajouter extends Fenetre implements ActionListener{
         
         super("Nouvel Element",400,400);
         
-        //Création des boutons 
-        chambre = new JButton("Ajouter une chambre");
-        employe = new JButton ("Ajouter un employe");
-        malade = new JButton("Ajouter un malade");
         label = new JLabel("Choisissez votre ajout");
-        
-        combo = new JComboBox();
+        cd = new CardLayout();
         
         //Création du menu déroulant
+        combo = new JComboBox();
         combo.addItem("Choisissez une catégorie");
         combo.addItem("Patient");
         combo.addItem("Docteur");
         combo.addItem("Employe");
         
         //Ajout des listeners
-        chambre.addActionListener(this);
-        employe.addActionListener(this);
-        malade.addActionListener(this);
         combo.addActionListener(this);
     
-        panel_bouton = new JPanel();
-        panel_combo = new JPanel();
-         panel_ajout= new JPanel();
+        panel_content = new JPanel();
+        panel_content.setLayout(cd);
         
-        //panel_combo.setLayout(new GridLayout(10, 110)); 
+        panel_1 = new JPanel();
+        panel_1.setBackground(Color.yellow);
+        panel_2 = new JPanel();
+        panel_2.setBackground(Color.blue);
         
         //Ajout aux panels
         //panel_bouton.add(chambre);
         //panel_bouton.add(employe);
         //panel_bouton.add(malade);
-        panel_combo.add(label);
-        panel_combo.add(combo);
+        panel_content.add(label);
+        panel_content.add(combo);
+        
+        
         
         setAlwaysOnTop(true);
        
-        add(panel_combo, BorderLayout.NORTH);
-        add(panel_bouton,BorderLayout.CENTER);
+
         setVisible(true);
         
     }
