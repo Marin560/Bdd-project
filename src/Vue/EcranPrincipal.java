@@ -210,8 +210,8 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
      
      }
      else if(source == MaJ){
-         Ajouter ajout = new Ajouter();
-         //Essai ess = new Essai();
+         //Ajouter ajout = new Ajouter();
+         Essai ess = new Essai();
      }
          
      else if(source == Reporting){
