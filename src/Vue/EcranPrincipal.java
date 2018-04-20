@@ -116,9 +116,9 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         p3 = new JPanel();
         
         
-        p0.setLayout(new GridLayout(1, 1)); 
-        p1.setLayout(new GridLayout(0,1)); 
-        //p2.setLayout(new GridLayout(10, 1)); 
+        p0.setLayout(new GridLayout(1, 3)); 
+        p1.setLayout(new GridLayout(1,1)); 
+        p2.setLayout(new GridLayout(1, 1)); 
         
         
         p0.add(Recherche); 

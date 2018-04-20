@@ -59,16 +59,21 @@ public class ButtonReportController implements ActionListener {
                 Tab[2]=c;
                 
                 String Nom_Service[] = new String[3];
-                Nom_Service[0]= ("CAR");
-                Nom_Service[1]= ("REA");
-                Nom_Service[2]= ("CHG");
+                Nom_Service[0]= ("CAR = "+a);
+                Nom_Service[1]= ("REA = "+b);
+                Nom_Service[2]= ("CHG = "+c);
                 
                 String titre = ("Nombre de Malades par Service");
                 
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+            //tpc.setVisible(true);
                 
                 
                 
@@ -107,20 +112,26 @@ public class ButtonReportController implements ActionListener {
                 Tab[6]=g;
                 
                 String Nom_Service[] = new String[7];
-                Nom_Service[0]= ("Anesthesiste");
-                Nom_Service[1]= ("Cardiologue");
-                Nom_Service[2]= ("Generaliste");
-                Nom_Service[3]= ("Orthopediste");
-                Nom_Service[4]= ("Pneumologue");
-                Nom_Service[5]= ("Radiologue");
-                Nom_Service[6]= ("Traumatologue");
+                Nom_Service[0]= ("Anesthesiste = "+a);
+                Nom_Service[1]= ("Cardiologue = "+b);
+                Nom_Service[2]= ("Generaliste = "+c);
+                Nom_Service[3]= ("Orthopediste = "+d);
+                Nom_Service[4]= ("Pneumologue = "+ee);
+                Nom_Service[5]= ("Radiologue = "+f);
+                Nom_Service[6]= ("Traumatologue = "+g);
                 
                 String titre = ("Nombre de Docteurs par Specialité");
                 
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+
+            //tpc.setVisible(true);
                 
                 
                 
@@ -149,16 +160,21 @@ public class ButtonReportController implements ActionListener {
                 Tab[2]=c;
                 
                 String Nom_Service[] = new String[3];
-                Nom_Service[0]= ("Salaires < 1300 euros");
-                Nom_Service[1]= ("Salaires entre 1300 et 1600 euros");
-                Nom_Service[2]= ("Salaires > 1600 euros");
+                Nom_Service[0]= ("Salaires < 1300 euros = "+a);
+                Nom_Service[1]= ("Salaires entre 1300 et 1600 euros = "+b);
+                Nom_Service[2]= ("Salaires > 1600 euros = "+c);
                 
                 String titre = ("Répartition des salaires chez les Infirmiers");
                 
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+            //tpc.setVisible(true);
                 
                 
                 
@@ -186,8 +202,8 @@ public class ButtonReportController implements ActionListener {
               
                 
                 String Nom_Service[] = new String[2];
-                Nom_Service[0]= (" Docteurs");
-                Nom_Service[1]= ("Infirmiers");
+                Nom_Service[0]= (" Docteurs = "+a);
+                Nom_Service[1]= ("Infirmiers = "+b);
                 
                 
                 String titre = ("Effectifs par Métier");
@@ -195,7 +211,12 @@ public class ButtonReportController implements ActionListener {
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+            //tpc.setVisible(true);
                 
                 
                 
@@ -234,20 +255,25 @@ public class ButtonReportController implements ActionListener {
                 Tab[6]=g;
                 
                 String Nom_Service[] = new String[7];
-                Nom_Service[0]= ("Dr. NADAL Rafael");
-                Nom_Service[1]= ("Dr. BJORKMAN Jonas");
-                Nom_Service[2]= ("Dr. GROSJEAN Sebastien");
-                Nom_Service[3]= ("Dr. FERRER David");
-                Nom_Service[4]= ("Dr. SAFIN Marat");
-                Nom_Service[5]= ("Dr. ZVONAREVA Vera");
-                Nom_Service[6]= ("Dr. HANTUCHOVA Daniela");
+                Nom_Service[0]= ("Dr. NADAL Rafael = "+a);
+                Nom_Service[1]= ("Dr. BJORKMAN Jonas = "+b);
+                Nom_Service[2]= ("Dr. GROSJEAN Sebastien = "+c);
+                Nom_Service[3]= ("Dr. FERRER David = "+d);
+                Nom_Service[4]= ("Dr. SAFIN Marat= "+ee);
+                Nom_Service[5]= ("Dr. ZVONAREVA Vera = "+f);
+                Nom_Service[6]= ("Dr. HANTUCHOVA Daniela = "+g);
                 
                 String titre = ("Nombre de Malades par Medecin");
                 
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+            //tpc.setVisible(true);
                 
                 
                 
@@ -280,16 +306,22 @@ public class ButtonReportController implements ActionListener {
                 Tab[2]=c;
                 
                 String Nom_Service[] = new String[3];
-                Nom_Service[0]= ("CAR");
-                Nom_Service[1]= ("REA");
-                Nom_Service[2]= ("CHG");
+                Nom_Service[0]= ("CAR = "+a);
+                Nom_Service[1]= ("REA = "+b);
+                Nom_Service[2]= ("CHG = "+c);
                 
                 String titre = ("Nombre d'infirmiers par Service");
                 
                 String choix = null;
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-            tpc.setVisible(true);
+            
+             JPanel z = new JPanel();
+            z = tpc.getp0();
+            fenetre.getp2().removeAll();
+            fenetre.getp2().add(z);
+            fenetre.revalidate();
+            //tpc.setVisible(true);
                 
                 
                 
