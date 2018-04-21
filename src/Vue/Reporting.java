@@ -49,9 +49,7 @@ public class Reporting extends Fenetre {
     public Reporting(Connection maConnexion){
         
         super ("Reporting");
-        
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
-        
+
         this.conn = maConnexion;
         
        MparS = new JButton("Nbr Malades par Service");

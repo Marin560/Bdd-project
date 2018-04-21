@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
   
 public class EcranPrincipal extends Fenetre implements ActionListener, ItemListener{ 
      
-    private JButton Recherche, MaJ, Reporting; //Bouttons de la fenêtre
+    private JButton Recherche, MaJ, Reporting, modif; //Bouttons de la fenêtre
     //private MonBouton Recherche, MaJ, Reporting;
     private JPanel p0, p1, p2, p3; 
     
@@ -73,11 +73,13 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         // Création des boutons 
         Recherche = new JButton("Recherche d'informations"); 
         MaJ = new JButton ("Ajouter Element"); 
+        modif = new JButton ("Modifier des élements");
         Reporting = new JButton ("Reporting");
 
         
         Recherche.addActionListener(this);
         MaJ.addActionListener(this);
+        modif.addActionListener(this);
         Reporting.addActionListener(this);
         
         DefaultTableModel table = new DefaultTableModel();
@@ -119,6 +121,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         
         p0.add(Recherche); 
         p0.add(MaJ); 
+        p0.add(modif);
         p0.add(Reporting); 
         p2.add(combo);
         p1.add(jScrollPane); 
@@ -207,17 +210,18 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
      }
      else if(source == MaJ){
         
-         Ajouter ajout = new Ajouter(conn); //On envoie un objet de type connexion et non de type connection
-         //Essai ess = new Essai();
+         Ajouter ajout = new Ajouter(conn);
      }
-         
+     
+     else if(source == modif){
+         Modifier_element nouvelle_modif = new Modifier_element(conn);
+     }
+     
      else if(source == Reporting){
-         Reporting report = new Reporting(conn); //On envoie un objet de type connexion et non de type connection 
+         Reporting report = new Reporting(conn); 
      }
-  }
+    }
     
-    
- 
     @Override 
     public void itemStateChanged(ItemEvent ie) { 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
