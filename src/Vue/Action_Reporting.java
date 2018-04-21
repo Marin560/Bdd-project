@@ -22,6 +22,8 @@ import javax.swing.*;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.*;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -36,6 +38,8 @@ public class Action_Reporting extends JFrame {
     private String titre;
     private String choix;
     
+    private Reporting fenetre;
+    
     
     public Action_Reporting(int pNombre[], String pNoms[], String ptitre, String pchoix){
     
@@ -49,20 +53,34 @@ public class Action_Reporting extends JFrame {
     choix=pchoix;
     
     DefaultPieDataset pieDataset = new DefaultPieDataset();
+    DefaultCategoryDataset barDataset = new DefaultCategoryDataset( );
 
     for(int i=0; i<Nombre.length; i++){
         
         pieDataset.setValue(Noms[i], Nombre[i]);
+        barDataset.addValue(Nombre[i], " ", Noms[i]);
+        
     }
     
-    JFreeChart pieChart = ChartFactory.createPieChart3D(titre,pieDataset, true, true, true);
-
-    ChartPanel cPanel = new ChartPanel(pieChart);
-    p0.add(cPanel);
+    if (choix.equals("camembert"))
+    {
+        JFreeChart pieChart = ChartFactory.createPieChart3D(titre,pieDataset, true, true, true);
+        ChartPanel cPanel = new ChartPanel(pieChart);
+        p0.add(cPanel); 
+    }
+    
+    else{
+        JFreeChart barChart = ChartFactory.createBarChart(titre,"","",barDataset,PlotOrientation.VERTICAL,true, true, false);
+        ChartPanel cPanel = new ChartPanel(barChart);
+        p0.add(cPanel);
+    }
+   
     
     }
     
     public JPanel getp0(){
         return p0;
     }
+
+   
 }

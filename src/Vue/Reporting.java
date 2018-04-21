@@ -42,8 +42,9 @@ import org.jfree.data.*;
 public class Reporting extends Fenetre {
     
     private JButton MparS, DparS, SparI, DiffMetiers, MparD, IparS;
+    private JRadioButton selectC, selectH;
      private Connection conn;
-     private JPanel p0, p1, p2;
+     private JPanel boutons, ronds, p2, p3;
     
     public Reporting(Connection maConnexion){
         
@@ -60,36 +61,57 @@ public class Reporting extends Fenetre {
        MparD = new JButton("Nbr de Malades par Docteurs");
        IparS = new JButton("Nbr d'infirmiers par Service");
        
-       
+       selectC = new JRadioButton("Camembert");
+       selectH = new JRadioButton("Histogramme");
+ 
+        selectC.setSelected(true);
+
+         ButtonGroup group = new ButtonGroup();
+        group.add(selectC);
+        group.add(selectH);
+    
+        selectC.addActionListener(new ButtonReportController(this, conn));
+        selectH.addActionListener(new ButtonReportController(this, conn));
+
        MparS.addActionListener(new ButtonReportController(this, conn));
        DparS.addActionListener(new ButtonReportController(this, conn));
        SparI.addActionListener(new ButtonReportController(this, conn));
        DiffMetiers.addActionListener(new ButtonReportController(this, conn));
        MparD.addActionListener(new ButtonReportController(this, conn));
        IparS.addActionListener(new ButtonReportController(this, conn));
-        //Création des panneaux
-        
-        p0 = new JPanel();
-        //p1 = new JPanel();
-        p2 = new JPanel();
-        
-        p0.setLayout(new GridLayout(2, 3, -20, 20)); 
        
         
-        // Ajout des bouteaux dans le p0
+   
+        //Création des panneaux
         
-        p0.add(MparS);
-        p0.add(DparS);
-        p0.add(SparI);
-        p0.add(DiffMetiers);
-        p0.add(MparD);
-        p0.add(IparS);
+        boutons = new JPanel();
+        ronds = new JPanel();
+        p2 = new JPanel();
+        p3 = new JPanel(new BorderLayout());
+        p3.add(boutons,BorderLayout. NORTH);
+        p3.add(p2,BorderLayout. CENTER);
+        
+        boutons.setLayout(new GridLayout(2, 3, -20, 20)); 
+        ronds.setLayout(new GridLayout(1, 1, -20, 20)); 
+       
+        
+        // Ajout des boutons dans le p0
+        
+        boutons.add(MparS);
+        boutons.add(DparS);
+        boutons.add(SparI);
+        boutons.add(DiffMetiers);
+        boutons.add(MparD);
+        boutons.add(IparS);
+        ronds.add(selectC);
+        ronds.add(selectH);
         
      
         
         // disposition geographique des panneaux 
-        this.getContentPane().add(p0, BorderLayout. NORTH);
-        this.getContentPane().add(p2, BorderLayout. CENTER);
+        this.getContentPane().add(p3, BorderLayout. CENTER);
+        this.getContentPane().add(ronds, BorderLayout. NORTH);
+        //this.getContentPane().add(p2, BorderLayout. SOUTH);
     }
     
     public JButton getMparS(){
@@ -121,6 +143,16 @@ public class Reporting extends Fenetre {
      public JPanel getp2()
     {
         return p2;
+    }
+     
+    public JRadioButton getSelectC()
+    {
+        return selectC;
+    }
+    
+    public JRadioButton getSelectH()
+    {
+        return selectH;
     }
     
     
