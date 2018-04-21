@@ -5,6 +5,7 @@
  */
 package Vue;
 
+import Controleur.Connexion;
 import java.awt.BorderLayout; 
 import java.awt.GridLayout; 
 import java.awt.event.ActionEvent; 
@@ -43,7 +44,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
     public JTable jtable = new JTable();
     
     public String namebdd;
-    private Connection conn;
+    private Connection conn; ///////////
     
     public EcranPrincipal(Connection maConnexion) throws SQLException{ //Constructeur
         // creation par heritage de la fenetre 
@@ -51,7 +52,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
 
-       this.conn = maConnexion;
+        this.conn = maConnexion;
         
         
         //On crée le panneau déroulant
@@ -73,19 +74,14 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         Recherche = new JButton("Recherche d'informations"); 
         MaJ = new JButton ("Ajouter Element"); 
         Reporting = new JButton ("Reporting");
-        
-        /*
-        Recherche = new MonBouton("Recherche d'information");
-        MaJ = new MonBouton("mise à jour");
-        Reporting = new MonBouton("reporting");
-        */
+
         
         Recherche.addActionListener(this);
         MaJ.addActionListener(this);
         Reporting.addActionListener(this);
         
         DefaultTableModel table = new DefaultTableModel();
-        Statement stmt = maConnexion.createStatement();
+        Statement stmt = maConnexion.createStatement(); 
         
         
         //Recherche des noms des colonnes pour la table "chambre"
@@ -149,7 +145,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
      if (source == combo){
          try {
              DefaultTableModel table = new DefaultTableModel();
-             Statement stmt = conn.createStatement();
+             Statement stmt = conn.createStatement(); 
              
              ResultSet Requete = stmt.executeQuery("SELECT column_name FROM information_schema.columns WHERE table_name = '"+combo.getSelectedItem()+"'");
            
@@ -210,12 +206,13 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
      
      }
      else if(source == MaJ){
-         //Ajouter ajout = new Ajouter();
-         Essai ess = new Essai();
+        
+         Ajouter ajout = new Ajouter(conn); //On envoie un objet de type connexion et non de type connection
+         //Essai ess = new Essai();
      }
          
      else if(source == Reporting){
-         Reporting report = new Reporting(conn);
+         Reporting report = new Reporting(conn); //On envoie un objet de type connexion et non de type connection 
      }
   }
     

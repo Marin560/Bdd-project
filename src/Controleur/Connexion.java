@@ -54,16 +54,13 @@ public class Connexion {
         Class.forName("com.mysql.jdbc.Driver");
 
         // url de connexion "jdbc:mysql://localhost:3305/usernameECE"
-        String urlDatabase = "jdbc:mysql://localhost:3308/" + nameDatabase;
+       //String urlDatabase = "jdbc:mysql://localhost:3308/" + nameDatabase;
         //String urlDatabase = "jdbc:mysql://localhost:3306/" + nameDatabase;
-        //String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
+        String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
         //création d'une connexion JDBC à la base 
         conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
 
-        // création d'un ordre SQL (statement)
-        stmt = conn.createStatement();
         
-        //
     }
 
     /**
@@ -216,5 +213,9 @@ public class Connexion {
     
     public Connection getConn(){
         return conn;
+    }
+
+    public Statement createStatement() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

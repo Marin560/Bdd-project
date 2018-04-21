@@ -14,6 +14,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -138,6 +139,11 @@ public class Accueil extends Fenetre implements ActionListener {
           // Connection maConnexion = new Connection("hopital","root","root");
           //On lance l'écran d'après pour gérer la base de données
           
+          // création d'un ordre SQL (statement)
+          Statement stmt = maConnexion.getConn().createStatement();
+ 
+          
+          //EcranPrincipal ep = new EcranPrincipal(maConnexion.getConn());
           EcranPrincipal ep = new EcranPrincipal(maConnexion.getConn());
           this.dispose();
           
