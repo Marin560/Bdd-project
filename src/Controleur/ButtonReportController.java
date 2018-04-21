@@ -65,7 +65,13 @@ public class ButtonReportController implements ActionListener {
                 
                 String titre = ("Nombre de Malades par Service");
                 
-                String choix = null;
+               String choix = null;
+                
+                if(fenetre.getSelectC().isSelected()){
+                  choix = "camembert"; 
+               }
+               else{ choix = "histogramme";}
+                
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
              JPanel z = new JPanel();
@@ -124,6 +130,12 @@ public class ButtonReportController implements ActionListener {
                 
                 String choix = null;
                 
+          if(fenetre.getSelectC().isSelected())
+          {
+              choix = "camembert"; 
+          }
+          else{ choix = "histogramme";}
+                
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
              JPanel z = new JPanel();
             z = tpc.getp0();
@@ -167,6 +179,11 @@ public class ButtonReportController implements ActionListener {
                 String titre = ("Répartition des salaires chez les Infirmiers");
                 
                 String choix = null;
+              if(fenetre.getSelectC().isSelected())
+              {
+                choix = "camembert"; 
+              }
+              else{ choix = "histogramme";}
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
              JPanel z = new JPanel();
@@ -209,6 +226,11 @@ public class ButtonReportController implements ActionListener {
                 String titre = ("Effectifs par Métier");
                 
                 String choix = null;
+             if(fenetre.getSelectC().isSelected())
+             {
+                  choix = "camembert"; 
+             }
+               else{ choix = "histogramme";}
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
              JPanel z = new JPanel();
@@ -266,6 +288,11 @@ public class ButtonReportController implements ActionListener {
                 String titre = ("Nombre de Malades par Medecin");
                 
                 String choix = null;
+            if(fenetre.getSelectC().isSelected())
+            {
+                  choix = "camembert"; 
+            }
+               else{ choix = "histogramme";}
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
              JPanel z = new JPanel();
@@ -313,6 +340,12 @@ public class ButtonReportController implements ActionListener {
                 String titre = ("Nombre d'infirmiers par Service");
                 
                 String choix = null;
+                
+            if(fenetre.getSelectC().isSelected())
+            {
+               choix = "camembert"; 
+            }
+               else{ choix = "histogramme";}
                 
             Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
             
