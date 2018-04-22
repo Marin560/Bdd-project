@@ -37,7 +37,11 @@ import javax.swing.JTextField;
 import static javax.swing.text.html.HTML.Tag.FORM;
 
 /**
- *
+ * Permet d'ajouter des éléments à la base de données 
+ * Possibilité de rajouter un malade, ou un employé
+ * 
+ * Un employé est soit un docteur, soit un infirmier
+ * 
  * @author peti_
  */
 public class Ajouter extends Fenetre implements ActionListener{
@@ -60,6 +64,11 @@ public class Ajouter extends Fenetre implements ActionListener{
    
     //Afficher les données 
     //Constructeur 
+
+    /**
+     *
+     * @param maConnexion
+     */
     public Ajouter(Connection maConnexion){
         
         //Création de la fenêtre et définition de la taille

@@ -182,7 +182,16 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
     }  
   
     
-    //Methode
+    /**
+     * Gère la modification de données lorsque l'on clique sur le tableau qui présente toutes les données de la BDD
+     * 
+     * Si le clic est fait sur un élément modifiable, proposition est faite de changer l'élément sélectionné
+     * Si le clic est fait sur le numéro d'un "employe" ou d'un "malade", on peut supprimer l'élément
+     * 
+     * @param row
+     * @param col
+     * @throws SQLException
+     */
     public void modification_tableau(int row, int col){
         JOptionPane op = new JOptionPane();
         String nom;
