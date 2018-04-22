@@ -136,8 +136,8 @@ public class Accueil extends Fenetre implements ActionListener {
           ArrayList<String> liste;
           //Connexion au serveur local (Nom bdd, user bdd, mdp bdd)
           
-          Connexion maConnexion = new Connexion(nameBDDTexte.getText(), "root", "root");
-          //Connexion maConnexion = new Connexion ("hopital","root","root");
+          //Connexion maConnexion = new Connexion(nameBDDTexte.getText(), "root", "root");
+          Connexion maConnexion = new Connexion ("hopital","root","root");
           //On lance l'écran d'après pour gérer la base de données
           
           

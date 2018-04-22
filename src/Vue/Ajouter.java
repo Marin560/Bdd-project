@@ -5,6 +5,7 @@
  */
 package Vue;
 
+import Controleur.Ajouter_traitement;
 import Controleur.Connexion;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -36,41 +37,52 @@ import javax.swing.JTextField;
 import static javax.swing.text.html.HTML.Tag.FORM;
 
 /**
- *
+ * Permet d'ajouter des éléments à la base de données 
+ * Possibilité de rajouter un malade, ou un employé
+ * 
+ * Un employé est soit un docteur, soit un infirmier
+ * 
  * @author peti_
  */
 public class Ajouter extends Fenetre implements ActionListener{
-    //Bouttons 
-    //Ajouter des infos
+    //Elemnts d'interface
     private JButton chambre, employe, malade, ajout,submit;
     private JPanel panel_principal,panel_malade, panel_malade2,panel_employe, panel_0, uper_panel;
     private JLabel label ;
     private CardLayout card_layout = new CardLayout();
     private GroupLayout layout;
     private JTextField tf = new JTextField(10);
-    
-    private Connection maCo;
-    
-    //Menu déroulant
     private JComboBox combo, box_infirmier_service, box_infirmier_rotation, doc_service;
     
+    
+    //Elements de traitement 
+    private Ajouter_traitement traitements ;
+    
+    private Connection maCo;
+    //Menu déroulant
+    
+   
     //Afficher les données 
-    
-    
-    
     //Constructeur 
+
+    /**
+     * 
+     * @param maConnexion
+     */
     public Ajouter(Connection maConnexion){
         
-//Création de la fenêtre et définition de la taille
+        //Création de la fenêtre et définition de la taille
         super("Nouvel Element",400,400);
         
         //Configuration connexcion
         this.maCo = maConnexion;
-       
+        
+        traitements = new Ajouter_traitement(maConnexion);
+        
+        
         //Configuration du bouton ajouter
         submit = new JButton("Ajouter");
-        
-        
+
         creation_menu_deroulant();
         
         panel_principal = new JPanel();
@@ -141,7 +153,7 @@ public class Ajouter extends Fenetre implements ActionListener{
         }
     }
     
-    public void ajout_employe(String nom, String prenom, String adresse, String telephone, String type_employe) throws SQLException{
+    public void ajout_employe(String nom, String prenom, String adresse, String telephone, String salaire, String type_employe) throws SQLException{
         //Si chaque String n'est pas vide = toutes les infos ont été entrées
         if((nom.length()== 0)||(prenom.length()== 0)||(adresse.length()==0)||(telephone.length()==0)){
             System.out.println("null"); //Ca marche
@@ -164,12 +176,12 @@ public class Ajouter extends Fenetre implements ActionListener{
             //En fonction du type d'employé que j'ajoute 
             if(type_employe.equals("Infirmier")){
                 //Ajout de l'infirmier
-                String service, rotation, salaire;
+                String service, rotation;
                 service = (String) box_infirmier_service.getSelectedItem();
                 rotation = (String) box_infirmier_rotation.getSelectedItem();
                 //salaire = (String) salaire;
                 
-                stmt.execute("INSERT INTO `infirmier` (`numero`, `code_service`, `rotation`, `salaire`) VALUES ('"+dernier+"', '"+service+"', '"+rotation+"', NULL)");
+                stmt.execute("INSERT INTO `infirmier` (`numero`, `code_service`, `rotation`, `salaire`) VALUES ('"+dernier+"', '"+service+"', '"+rotation+"', '"+salaire+"')");
                 this.dispose();
             }
             else if(type_employe.equals("Docteur")){
@@ -182,7 +194,7 @@ public class Ajouter extends Fenetre implements ActionListener{
         }
     }
     
-    
+    //Listeners
     @Override
     public void actionPerformed(ActionEvent ae) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -220,8 +232,7 @@ public class Ajouter extends Fenetre implements ActionListener{
                     addComponent(label1).addComponent(label2).addComponent(label3).addComponent(label4).addComponent(label5));
                 groupe_horizontal.addGroup(layout.createParallelGroup().
                     addComponent(prenom).addComponent(nom).addComponent(tel).addComponent(mutuelle).addComponent(adresse).addComponent(submit));
-                
-                    
+ 
                 layout.setHorizontalGroup(groupe_horizontal);
 
                 //On crée un autre groupe pour l'axe vertical
@@ -245,11 +256,14 @@ public class Ajouter extends Fenetre implements ActionListener{
                 //J'affiche Submit
                 submit.setVisible(true);
                 
+                //Si on clique sur ajouter :
                 submit.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
                         try {
+                            
                             //On envoie les infos dans la base de donnée
+                            //traitements.ajouter_malade(nom.getText(),prenom.getText(),adresse.getText(), tel.getText(),mutuelle.getText());
                             ajout_malade(nom.getText(),prenom.getText(),adresse.getText(), tel.getText(),mutuelle.getText());
                             
                         } catch (SQLException ex) {
@@ -275,6 +289,7 @@ public class Ajouter extends Fenetre implements ActionListener{
                 JLabel label2 = new JLabel("Nom");
                 JLabel label3 = new JLabel("Telephone");
                 JLabel label5 = new JLabel("Adresse");
+                JLabel label6 = new JLabel("Salaire");
                 JComboBox box = new JComboBox();
                 box.addItem("Autre");
                 box.addItem("Infirmier");
@@ -309,6 +324,7 @@ public class Ajouter extends Fenetre implements ActionListener{
                 JTextField nom = new JTextField();
                 JTextField tel = new JTextField();
                 JTextField adresse = new JTextField();
+                JTextField salaire = new JTextField();
                 
                 //On ajoute un espace automatique entre chaque composant de la fenêtre
                 layout.setAutoCreateGaps(true);
@@ -316,9 +332,9 @@ public class Ajouter extends Fenetre implements ActionListener{
                 //On crée un groupe pour l'axe horizontal
                 GroupLayout.SequentialGroup groupe_horizontal = layout.createSequentialGroup();
                 groupe_horizontal.addGroup(layout.createParallelGroup().
-                    addComponent(label1).addComponent(label2).addComponent(label3).addComponent(label5));
+                    addComponent(label1).addComponent(label2).addComponent(label3).addComponent(label5).addComponent(label6));
                 groupe_horizontal.addGroup(layout.createParallelGroup().
-                    addComponent(prenom).addComponent(nom).addComponent(tel).addComponent(adresse).addComponent(box).addComponent(box_infirmier_service).addComponent(box_infirmier_rotation).addComponent(doc_service).addComponent(submit));  
+                    addComponent(prenom).addComponent(nom).addComponent(tel).addComponent(adresse).addComponent(salaire).addComponent(box).addComponent(box_infirmier_service).addComponent(box_infirmier_rotation).addComponent(doc_service).addComponent(submit));  
                 layout.setHorizontalGroup(groupe_horizontal);
 
                 //On crée un autre groupe pour l'axe vertical
@@ -331,6 +347,8 @@ public class Ajouter extends Fenetre implements ActionListener{
                          addComponent(label3).addComponent(tel));
                 groupe_vertical.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
                          addComponent(label5).addComponent(adresse));
+                groupe_vertical.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
+                         addComponent(label6).addComponent(salaire));
                 groupe_vertical.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
                          addComponent(box));
                 groupe_vertical.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE).
@@ -350,11 +368,13 @@ public class Ajouter extends Fenetre implements ActionListener{
                     public void actionPerformed(ActionEvent ae) {
                         
                         if(box.getSelectedItem() == "Infirmier"){
+                            salaire.setVisible(true);
                             doc_service.setVisible(false);
                             box_infirmier_service.setVisible(true);
                             box_infirmier_rotation.setVisible(true);
                         }
                         else if(box.getSelectedItem() == "Docteur"){
+                            salaire.setVisible(true);
                             box_infirmier_service.setVisible(false);
                             box_infirmier_rotation.setVisible(false);
                             doc_service.setVisible(true);
@@ -367,10 +387,10 @@ public class Ajouter extends Fenetre implements ActionListener{
                     public void actionPerformed(ActionEvent ae) {
                         
                         try {
-                            ajout_employe(nom.getText(),prenom.getText(),adresse.getText(), tel.getText(), (String) box.getSelectedItem());
+                            //traitements.ajout_employe(nom.getText(), prenom.getText(), adresse.getText(), tel.getText(), (String) box.getSelectedItem(), box_infirmier_service, box_infirmier_rotation, doc_service);
+                            ajout_employe(nom.getText(),prenom.getText(),adresse.getText(), tel.getText(), salaire.getText(), (String) box.getSelectedItem());
                         } catch (SQLException ex) {
                             JOptionPane.showMessageDialog(null,"Erreur: " + ex,"Titre : exception",JOptionPane.ERROR_MESSAGE);
-                            //Logger.getLogger(Ajouter.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 });
