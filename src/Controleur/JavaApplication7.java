@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- *
+ *Classe contenant le main , qui lance la page d'acceuil
  * @author peti_
  */
 public class JavaApplication7 {

@@ -29,7 +29,7 @@ import javax.swing.JTextField;
 
 
 /**
- *
+ *Classe qui permet la connexion à la bdd, en local ou à distance
  * @author Roxane
  */
 public class Accueil extends Fenetre implements ActionListener {
@@ -45,7 +45,9 @@ public class Accueil extends Fenetre implements ActionListener {
   //String[] listContent = {"ConnexionLocale", "ConnexionECE"};
   //int indice = 0;
     
- 
+    /**
+     *Constructeur 
+     */
     public Accueil(){
         
         super("Accueil");
