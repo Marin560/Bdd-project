@@ -166,22 +166,45 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
     
     //Methode
     public void modification_tableau(int row, int col){
-        
         JOptionPane op = new JOptionPane();
         String nom;
         
         //Modifs surveillant
         if((jtable.getColumnName(col).equals("surveillant"))&&(combo.getSelectedItem()== "Chambre")){
             //On demande la nouvelle valeur
-            nom = op.showInputDialog(null, "Entrez le nouveau Surveillant", "Changement de Surveillant", JOptionPane.QUESTION_MESSAGE);
+            
             
             try {
-                //UPDATE `chambre` SET `surveillant` = '86' WHERE CONCAT(`chambre`.`no_chambre`) = '101'
-                //stmt.execute("UPDATE '"+maString+"' SET '"+jtable.getColumnName(col)+"' = '"+nom+"' WHERE CONCAT(`chambre`.`"+jtable.getColumnName(col-1)+"`) = '"+jtable.getValueAt(row, col-1)+"' ");
-                //stmt.execute("UPDATE `"+combo.getSelectedItem()+"` SET `"+jtable.getColumnName(col)+"` = '"+nom+"' WHERE CONCAT(`chambre`.`"+jtable.getColumnName(col-1)+"`) = '101'");
+                
+                //On récupère toutes les valeurs distinctes 
+                ResultSet Requete = stmt.executeQuery("SELECT COUNT(DISTINCT `numero`) FROM `infirmier` ");
+                
+                //On récupère le nombre d'info distinctes
+                int taille=0; //Valeur par défaut
+                while(Requete.next()){
+                    taille = Requete.getInt(1);
+                }
+                
+                System.out.println(taille);
+                
+                //On crée un tableau de String de taille taille
+                String montab[] = new String[taille];                
+                
+                //On récupère les différentes valeurs possibles que peut prendre un surveillant, donc on récupère les numéros d'employés
+                Requete = stmt.executeQuery("SELECT DISTINCT `numero` FROM `infirmier`");
+                
+                int numero_case_tab = 0;
+                while(Requete.next()){
+                    montab[numero_case_tab] = Requete.getString("numero");
+                    numero_case_tab++;  
+                }
+                
+                nom = (String) op.showInputDialog(null, "Choisissez un autre Surveillant", "Changement de Surveillant", JOptionPane.QUESTION_MESSAGE, null, montab, jtable.getValueAt(row, col));
+
                 stmt.execute("UPDATE `"+combo.getSelectedItem()+"` SET `"+jtable.getColumnName(col)+"` = '"+nom+"' "
-                      + "WHERE `chambre`.`code_service` = '"+jtable.getValueAt(row, col-2)+"' AND(`chambre`.`"+jtable.getColumnName(col-1)+"`) = '101'");                                  //On met la valeur dans le tableau
-               
+                        + "WHERE `chambre`.`code_service` = '"+jtable.getValueAt(row, 0)+"' "
+                                + "AND `chambre`.`no_chambre` = '"+jtable.getValueAt(row, col-1)+"' ");                                  //On met la valeur dans le tableau
+                
                 jtable.setValueAt(nom, row, col);
                                                 
                 //WHERE `chambre`.`code_service` = 'CAR'
@@ -237,8 +260,6 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
             //Si l'utilisateur dit oui
             if(choix_utilisateur == JOptionPane.OK_OPTION ){
                 try {
-                    //On envoie la nouvelle valeur dans la base de données
-                    //DELETE FROM `malade` WHERE CONCAT(`malade`.`numero`) = '194';
                     stmt.execute("DELETE FROM `"+combo.getSelectedItem()+"` WHERE CONCAT (`"+combo.getSelectedItem()+"`.`numero`) = '"+jtable.getValueAt(row, 0)+"'  ");                                  //On met la valeur dans le tableau
                     
                     //On recharge la page 
@@ -397,12 +418,10 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         int column = tme.getColumn();
         System.out.println(jtable.getValueAt(row, column));
         
-        
         TableModel model = (TableModel)tme.getSource();
         
         String columName = model.getColumnName(column);
         Object data = model.getValueAt(row, column);
-        
         
     }
 
