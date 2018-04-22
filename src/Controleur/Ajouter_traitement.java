@@ -14,7 +14,8 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Effectue les traitements SQL lors de l'ajout d'un nouvel élément à la base de données
+ * 
  * @author peti_
  */
 public class Ajouter_traitement {
