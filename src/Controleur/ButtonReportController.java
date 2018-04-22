@@ -110,7 +110,8 @@ public class ButtonReportController implements ActionListener {
            
         }
         
-         if(e.getSource() == fenetre.getDparS())
+        // Lorsqu'on veut le détail des docteurs par service
+        if(e.getSource() == fenetre.getDparS())
         {
            try {
                 Statement stmt = conn.createStatement();  
@@ -182,7 +183,8 @@ public class ButtonReportController implements ActionListener {
             } 
         }
         
-          if(e.getSource() == fenetre.getSparI())
+        // Si on veut connaitre les salaires par infirmier  
+        if(e.getSource() == fenetre.getSparI())
         {
               try {
                 Statement stmt = conn.createStatement();  
@@ -239,7 +241,8 @@ public class ButtonReportController implements ActionListener {
             } 
         }
           
-         if(e.getSource() == fenetre.getDiffMetiers())
+        // Si on veut connaitre la réparition des différents métiers au sein du Centre Hospitalier
+        if(e.getSource() == fenetre.getDiffMetiers())
         {
            try {
                 Statement stmt = conn.createStatement();  
@@ -297,7 +300,8 @@ public class ButtonReportController implements ActionListener {
            
         }
          
-         if(e.getSource() == fenetre.getMparD())
+        // Si on veut connaitre le nombre de malades par docteur 
+        if(e.getSource() == fenetre.getMparD())
         {
          try {
                 Statement stmt = conn.createStatement();  
@@ -369,6 +373,7 @@ public class ButtonReportController implements ActionListener {
         }
         
         
+        // Si on veut connaitre le nombre d'infirmiers par service
         if(e.getSource() == fenetre.getIparS()) 
         {
             try {
