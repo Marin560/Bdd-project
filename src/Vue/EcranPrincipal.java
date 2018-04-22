@@ -5,6 +5,7 @@
  */
 package Vue;
 
+import Controleur.Ajouter_traitement;
 import Controleur.Connexion;
 import java.awt.BorderLayout; 
 import java.awt.GridLayout; 
@@ -321,9 +322,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
                         Logger.getLogger(EcranPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                     }
             }
-            
 
-            
         }
     }
 
@@ -399,6 +398,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
      else if(source == MaJ){
         //Essai ess = new Essai(conn);
         Ajouter ajout = new Ajouter(conn);
+        //Ajouter_traitement ajout = new Ajouter_traitement(conn);
      }
      
      else if(source == Reporting){
@@ -413,17 +413,6 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
 
     @Override
     public void tableChanged(TableModelEvent tme) {
-        //On regarde les modifications de la table
-        System.out.println("Oui");
-        int row = tme.getFirstRow();
-        int column = tme.getColumn();
-        System.out.println(jtable.getValueAt(row, column));
-        
-        TableModel model = (TableModel)tme.getSource();
-        
-        String columName = model.getColumnName(column);
-        Object data = model.getValueAt(row, column);
-        
     }
 
     @Override
