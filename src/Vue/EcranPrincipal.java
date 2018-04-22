@@ -181,6 +181,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
                 
                 //On récupère le nombre d'info distinctes
                 int taille=0; //Valeur par défaut
+                
                 while(Requete.next()){
                     taille = Requete.getInt(1);
                 }
@@ -396,8 +397,8 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
      
      }
      else if(source == MaJ){
-        
-         Ajouter ajout = new Ajouter(conn);
+        //Essai ess = new Essai(conn);
+        Ajouter ajout = new Ajouter(conn);
      }
      
      else if(source == Reporting){

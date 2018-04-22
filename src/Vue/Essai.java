@@ -10,6 +10,12 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -28,9 +34,51 @@ import javax.swing.SpringLayout;
 public class Essai extends Fenetre implements ActionListener{
     
     private JTable table;
-    public Essai(){
-
+    private Connection co;
+    private Statement stmt;
+    
+    public Essai(Connection coRecu){
+        
         super("Essai");
+        
+        this.co = coRecu;
+        
+        String[] tab = new String[4]; //Nom, Prenom, Adresse, Tel
+        int i =0;
+        try { 
+            stmt = co.createStatement();
+            
+            String nom_recherché = "Nadal";
+            
+            ResultSet Requete = stmt.executeQuery("SELECT * FROM `employe` WHERE `nom` = '"+nom_recherché+"' ");
+            
+            if(Requete.next())
+                tab[i]=Requete.getString("prenom");
+            i++;
+            
+            if(Requete.next())
+                tab[i]=Requete.getString("nom");
+           
+            System.out.println(tab[i]);
+            i++;
+             
+            if(Requete.next())
+                tab[i]=Requete.getString("adresse");
+            i++;
+            
+            if(Requete.next())
+                tab[i]=Requete.getString("tel");
+            i++;
+            
+            //On affiche les infos dans la console
+            for(int e = 0 ; e<4 ; e++){
+                System.out.println(tab[e]);
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Essai.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         table = new JTable();
         
