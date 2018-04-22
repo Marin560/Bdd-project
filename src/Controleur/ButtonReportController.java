@@ -5,7 +5,7 @@
  */
 package Controleur;
 
-import Vue.Action_Reporting;
+import Modèle.Action_Reporting;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Vue.Reporting;
@@ -24,7 +24,7 @@ import org.jfree.chart.plot.*;
 import org.jfree.data.*;
 
 /**
- *
+ *Classe qui traite les données de la bdd en fonction des demandes de reporting
  * @author Roxane
  */
 public class ButtonReportController implements ActionListener {
@@ -32,6 +32,11 @@ public class ButtonReportController implements ActionListener {
     private Reporting fenetre;
     private Connection conn;
 
+    /**
+     *Constructeur surchargé 
+     * @param fen
+     * @param maConnexion
+     */
     public ButtonReportController(Reporting fen, Connection maConnexion) 
     {
         this.fenetre = fen;
@@ -41,42 +46,56 @@ public class ButtonReportController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) 
     {
+        // Lorsque on veut connaitre la quantité de malades par médecins
         if(e.getSource() == fenetre.getMparS())
         {
               try {
                 Statement stmt = conn.createStatement();  
                 ResultSet Requete = stmt.executeQuery("SELECT (SELECT COUNT(*) FROM hospitalisation WHERE code_service = 'CAR') as numero1, (SELECT COUNT(*) FROM hospitalisation WHERE code_service = 'CHG') as numero2, (SELECT COUNT(*) FROM hospitalisation WHERE code_service = 'REA') as numero3");
                 Requete.next();
+                
+                // On récupère les valeurs de la requete
                 int a = Requete.getInt("numero1");
              
                 int b = Requete.getInt("numero2");
 
                 int c = Requete.getInt("numero3");
                 
+                // On crée un tableau pour stocker les valeurs
                 int Tab[] = new int[3];
                 Tab[0]= a;
                 Tab[1]=b;
                 Tab[2]=c;
                 
+                // On crée un tableau pour stocker les noms 
                 String Nom_Service[] = new String[3];
                 Nom_Service[0]= ("CAR = "+a);
                 Nom_Service[1]= ("REA = "+b);
                 Nom_Service[2]= ("CHG = "+c);
                 
+                // Titre du graphique
                 String titre = ("Nombre de Malades par Service");
-                
+               
+                // On met le choix à 'null'
                String choix = null;
                 
-                if(fenetre.getSelectC().isSelected()){
-                  choix = "camembert"; 
+               // Si le client choisit le camembert 
+               if(fenetre.getSelectC().isSelected()){
+                  // On change la valeur de la variable choix
+                   choix = "camembert"; 
                }
                else{ choix = "histogramme";}
                 
                 
-            Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-             JPanel z = new JPanel();
+           // On crée un nouvel élément avec les valeurs obtenues 
+           Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
+           //Création d'un nouveau JPanel
+           JPanel z = new JPanel();
+           // On récupère les données du p0 de tpc et on les met dans z
             z = tpc.getp0();
+            // On efface la fenetre
             fenetre.getp2().removeAll();
+            // On affiche z
             fenetre.getp2().add(z);
             fenetre.revalidate();
             //tpc.setVisible(true);
@@ -91,13 +110,16 @@ public class ButtonReportController implements ActionListener {
            
         }
         
-         if(e.getSource() == fenetre.getDparS())
+        // Lorsqu'on veut le détail des docteurs par service
+        if(e.getSource() == fenetre.getDparS())
         {
            try {
                 Statement stmt = conn.createStatement();  
                 ResultSet Requete = stmt.executeQuery("SELECT (SELECT COUNT(*) FROM docteur WHERE specialite = 'Anesthesiste') as numero1, (SELECT COUNT(*) FROM docteur WHERE specialite = 'Cardiologue') as numero2, (SELECT COUNT(*) FROM docteur WHERE specialite = 'Orthopediste') as numero3 , (SELECT COUNT(*) FROM docteur WHERE specialite = 'Pneumologue') as numero4, (SELECT COUNT(*) FROM docteur WHERE specialite = 'Radiologue') as numero5, (SELECT COUNT(*) FROM docteur WHERE specialite = 'Generaliste') as numero6, (SELECT COUNT(*) FROM docteur WHERE specialite = 'Traumatologue') as numero7");
 
                 Requete.next();
+                
+                 // On récupère les valeurs de la requete
                 int a = Requete.getInt("numero1");
              
                 int b = Requete.getInt("numero2");
@@ -108,6 +130,8 @@ public class ButtonReportController implements ActionListener {
                 int f = Requete.getInt("numero6");
                 int g = Requete.getInt("numero7");
                 
+                
+                // On crée un tableau pour stocker les valeurs
                 int Tab[] = new int[7];
                 Tab[0]= a;
                 Tab[1]=b;
@@ -117,6 +141,7 @@ public class ButtonReportController implements ActionListener {
                 Tab[5]=f;
                 Tab[6]=g;
                 
+                // On crée un tableau pour stocker les noms 
                 String Nom_Service[] = new String[7];
                 Nom_Service[0]= ("Anesthesiste = "+a);
                 Nom_Service[1]= ("Cardiologue = "+b);
@@ -126,25 +151,30 @@ public class ButtonReportController implements ActionListener {
                 Nom_Service[5]= ("Radiologue = "+f);
                 Nom_Service[6]= ("Traumatologue = "+g);
                 
+               // Titre du graphique
                 String titre = ("Nombre de Docteurs par Specialité");
                 
+               
                 String choix = null;
                 
-          if(fenetre.getSelectC().isSelected())
-          {
-              choix = "camembert"; 
-          }
-          else{ choix = "histogramme";}
+         // Si le client choisit le camembert 
+               if(fenetre.getSelectC().isSelected()){
+                  // On change la valeur de la variable choix
+                   choix = "camembert"; 
+               }
+               else{ choix = "histogramme";}
                 
-            Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-             JPanel z = new JPanel();
+            // On crée un nouvel élément avec les valeurs obtenues 
+           Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
+           //Création d'un nouveau JPanel
+           JPanel z = new JPanel();
+           // On récupère les données du p0 de tpc et on les met dans z
             z = tpc.getp0();
+            // On efface la fenetre
             fenetre.getp2().removeAll();
+            // On affiche z
             fenetre.getp2().add(z);
             fenetre.revalidate();
-
-            //tpc.setVisible(true);
-                
                 
                 
                 
@@ -153,24 +183,29 @@ public class ButtonReportController implements ActionListener {
             } 
         }
         
-          if(e.getSource() == fenetre.getSparI())
+        // Si on veut connaitre les salaires par infirmier  
+        if(e.getSource() == fenetre.getSparI())
         {
               try {
                 Statement stmt = conn.createStatement();  
                ResultSet Requete = stmt.executeQuery("SELECT (SELECT COUNT(*) FROM infirmier WHERE salaire < 1300) as numero1, (SELECT COUNT(*) FROM infirmier WHERE salaire > 1300 AND salaire < 1600) as numero2, (SELECT COUNT(*) FROM infirmier WHERE salaire > 1600) as numero3 ");
 
                 Requete.next();
+                
+                 // On récupère les valeurs de la requete
                 int a = Requete.getInt("numero1");
              
                 int b = Requete.getInt("numero2");
 
                 int c = Requete.getInt("numero3");
                 
+               // On crée un tableau pour stocker les valeurs
                 int Tab[] = new int[3];
                 Tab[0]= a;
                 Tab[1]=b;
                 Tab[2]=c;
                 
+                // On crée un tableau pour stocker les noms 
                 String Nom_Service[] = new String[3];
                 Nom_Service[0]= ("Salaires < 1300 euros = "+a);
                 Nom_Service[1]= ("Salaires entre 1300 et 1600 euros = "+b);
@@ -179,20 +214,25 @@ public class ButtonReportController implements ActionListener {
                 String titre = ("Répartition des salaires chez les Infirmiers");
                 
                 String choix = null;
-              if(fenetre.getSelectC().isSelected())
-              {
-                choix = "camembert"; 
-              }
-              else{ choix = "histogramme";}
+              
+                // Si le client choisit le camembert 
+               if(fenetre.getSelectC().isSelected()){
+                  // On change la valeur de la variable choix
+                   choix = "camembert"; 
+               }
+               else{ choix = "histogramme";}
                 
-            Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-             JPanel z = new JPanel();
+            // On crée un nouvel élément avec les valeurs obtenues 
+           Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
+           //Création d'un nouveau JPanel
+           JPanel z = new JPanel();
+           // On récupère les données du p0 de tpc et on les met dans z
             z = tpc.getp0();
+            // On efface la fenetre
             fenetre.getp2().removeAll();
+            // On affiche z
             fenetre.getp2().add(z);
             fenetre.revalidate();
-            //tpc.setVisible(true);
-                
                 
                 
                 
@@ -201,23 +241,28 @@ public class ButtonReportController implements ActionListener {
             } 
         }
           
-         if(e.getSource() == fenetre.getDiffMetiers())
+        // Si on veut connaitre la réparition des différents métiers au sein du Centre Hospitalier
+        if(e.getSource() == fenetre.getDiffMetiers())
         {
            try {
                 Statement stmt = conn.createStatement();  
                ResultSet Requete1 = stmt.executeQuery("SELECT COUNT(*) AS resultat1 FROM docteur");
 
                 Requete1.next();
+                 // On récupère la valeurs de la requete
                 int a = Requete1.getInt("resultat1");
                  ResultSet Requete2 = stmt.executeQuery("SELECT COUNT(*) AS resultat2 FROM infirmier");
-                Requete2.next();   
+                Requete2.next(); 
+                 // On récupère la valeurs de la requete
                 int b = Requete2.getInt("resultat2");
                 
+                // On crée un tableau pour stocker les valeurs
                 int Tab[] = new int[2];
                 Tab[0]= a;
                 Tab[1]=b;
               
                 
+               // On crée un tableau pour stocker les noms 
                 String Nom_Service[] = new String[2];
                 Nom_Service[0]= (" Docteurs = "+a);
                 Nom_Service[1]= ("Infirmiers = "+b);
@@ -226,19 +271,25 @@ public class ButtonReportController implements ActionListener {
                 String titre = ("Effectifs par Métier");
                 
                 String choix = null;
-             if(fenetre.getSelectC().isSelected())
-             {
-                  choix = "camembert"; 
-             }
+             
+                // Si le client choisit le camembert 
+               if(fenetre.getSelectC().isSelected()){
+                  // On change la valeur de la variable choix
+                   choix = "camembert"; 
+               }
                else{ choix = "histogramme";}
                 
-            Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-             JPanel z = new JPanel();
+             // On crée un nouvel élément avec les valeurs obtenues 
+           Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
+           //Création d'un nouveau JPanel
+           JPanel z = new JPanel();
+           // On récupère les données du p0 de tpc et on les met dans z
             z = tpc.getp0();
+            // On efface la fenetre
             fenetre.getp2().removeAll();
+            // On affiche z
             fenetre.getp2().add(z);
             fenetre.revalidate();
-            //tpc.setVisible(true);
                 
                 
                 
@@ -249,7 +300,8 @@ public class ButtonReportController implements ActionListener {
            
         }
          
-         if(e.getSource() == fenetre.getMparD())
+        // Si on veut connaitre le nombre de malades par docteur 
+        if(e.getSource() == fenetre.getMparD())
         {
          try {
                 Statement stmt = conn.createStatement();  
@@ -257,6 +309,8 @@ public class ButtonReportController implements ActionListener {
 
 
                 Requete.next();
+                
+                 // On récupère les valeurs de la requete
                 int a = Requete.getInt("numero1");
              
                 int b = Requete.getInt("numero2");
@@ -267,6 +321,7 @@ public class ButtonReportController implements ActionListener {
                 int f = Requete.getInt("numero6");
                 int g = Requete.getInt("numero7");
                 
+                // On crée un tableau pour stocker les valeurs
                 int Tab[] = new int[7];
                 Tab[0]= a;
                 Tab[1]=b;
@@ -276,6 +331,7 @@ public class ButtonReportController implements ActionListener {
                 Tab[5]=f;
                 Tab[6]=g;
                 
+                // On crée un tableau pour stocker les noms 
                 String Nom_Service[] = new String[7];
                 Nom_Service[0]= ("Dr. NADAL Rafael = "+a);
                 Nom_Service[1]= ("Dr. BJORKMAN Jonas = "+b);
@@ -288,19 +344,25 @@ public class ButtonReportController implements ActionListener {
                 String titre = ("Nombre de Malades par Medecin");
                 
                 String choix = null;
-            if(fenetre.getSelectC().isSelected())
-            {
-                  choix = "camembert"; 
-            }
+            
+                // Si le client choisit le camembert 
+               if(fenetre.getSelectC().isSelected()){
+                  // On change la valeur de la variable choix
+                   choix = "camembert"; 
+               }
                else{ choix = "histogramme";}
                 
-            Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
-             JPanel z = new JPanel();
+             // On crée un nouvel élément avec les valeurs obtenues 
+           Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
+           //Création d'un nouveau JPanel
+           JPanel z = new JPanel();
+           // On récupère les données du p0 de tpc et on les met dans z
             z = tpc.getp0();
+            // On efface la fenetre
             fenetre.getp2().removeAll();
+            // On affiche z
             fenetre.getp2().add(z);
             fenetre.revalidate();
-            //tpc.setVisible(true);
                 
                 
                 
@@ -311,27 +373,33 @@ public class ButtonReportController implements ActionListener {
         }
         
         
+        // Si on veut connaitre le nombre d'infirmiers par service
         if(e.getSource() == fenetre.getIparS()) 
         {
             try {
                 Statement stmt = conn.createStatement();  
                 ResultSet Requete1 = stmt.executeQuery("SELECT COUNT(`numero`) AS numero FROM `infirmier` WHERE `code_service` = 'CAR'");
                 Requete1.next();
+                 // On récupère la valeurs de la requete
                 int a = Requete1.getInt("numero");
                 
                 ResultSet Requete2 = stmt.executeQuery("SELECT COUNT(`numero`) AS numero FROM `infirmier` WHERE `code_service` = 'REA'");
                 Requete2.next();
+                 // On récupère la valeurs de la requete
                 int b = Requete2.getInt("numero");
                 
                 ResultSet Requete3 = stmt.executeQuery("SELECT COUNT(`numero`) AS numero FROM `infirmier` WHERE `code_service` = 'CHG'");
                 Requete3.next();
+                 // On récupère la valeurs de la requete
                 int c = Requete3.getInt("numero");
                 
+               // On crée un tableau pour stocker les valeurs
                 int Tab[] = new int[3];
                 Tab[0]= a;
                 Tab[1]=b;
                 Tab[2]=c;
                 
+                // On crée un tableau pour stocker les noms 
                 String Nom_Service[] = new String[3];
                 Nom_Service[0]= ("CAR = "+a);
                 Nom_Service[1]= ("REA = "+b);
@@ -341,20 +409,25 @@ public class ButtonReportController implements ActionListener {
                 
                 String choix = null;
                 
-            if(fenetre.getSelectC().isSelected())
-            {
-               choix = "camembert"; 
-            }
+            // Si le client choisit le camembert 
+               if(fenetre.getSelectC().isSelected()){
+                  // On change la valeur de la variable choix
+                   choix = "camembert"; 
+               }
                else{ choix = "histogramme";}
-                
-            Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
+               
             
-             JPanel z = new JPanel();
+            // On crée un nouvel élément avec les valeurs obtenues 
+           Action_Reporting tpc = new Action_Reporting( Tab, Nom_Service, titre, choix);
+           //Création d'un nouveau JPanel
+           JPanel z = new JPanel();
+           // On récupère les données du p0 de tpc et on les met dans z
             z = tpc.getp0();
+            // On efface la fenetre
             fenetre.getp2().removeAll();
+            // On affiche z
             fenetre.getp2().add(z);
             fenetre.revalidate();
-            //tpc.setVisible(true);
                 
                 
                 

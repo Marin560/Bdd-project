@@ -36,15 +36,15 @@ import javax.swing.event.*;
 import javax.swing.table.TableModel;
 
 /**
- *
+ *Classe qui crée l'écran principal (bontons+afichage bdd)
  * @author Roxane
  */
   
 public class EcranPrincipal extends Fenetre implements ActionListener, ItemListener,TableModelListener,MouseListener{ 
      
-    private JButton Recherche, MaJ, Reporting, modif; //Bouttons de la fenêtre
-    //private MonBouton Recherche, MaJ, Reporting;
-    private JPanel p0, p1, p2, p3; 
+    private JButton Recherche, MaJ, Reporting, modif; //Boutons de la fenêtre
+    
+    private JPanel p0, p1, p2, p3; //création des panneaux 
     
     //Création de la comboBox (barre de selection)
     private JComboBox combo = new JComboBox();
@@ -56,7 +56,13 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
     private Connection conn; ///////////
     private Statement stmt;
     
+    /**
+     * Constructeur surchargé qui gère le tableau de données, les boutons et le menu déroulant
+     * @param maConnexion
+     * @throws SQLException
+     */
     public EcranPrincipal (Connection maConnexion) throws SQLException{ //Constructeur
+        
         // creation par heritage de la fenetre 
         super("Logiciel de Gestion du Centre Hospitalier",800,750); 
         setResizable(true);
@@ -78,6 +84,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         combo.addActionListener(this);
          
 
+        //Prise en compte des actions de la souris sur la jtable
         jtable.addMouseListener(new MouseAdapter()  {
             public void mousePressed(MouseEvent e) {
  
@@ -100,8 +107,10 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
             }
         });
         
-        
+        // Création du tableau déroulant
         JScrollPane jScrollPane = new JScrollPane();
+        
+        // On met les valeurs de la jtable dans le tableau déroulant
         jScrollPane.setViewportView(jtable);
         
         // Création des boutons 
@@ -109,6 +118,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         MaJ = new JButton ("Ajouter Element"); 
         Reporting = new JButton ("Reporting");
   
+        //Ajout des ActionListener sur les boutons 
         Recherche.addActionListener(this);
         MaJ.addActionListener(this);
         Reporting.addActionListener(this);
@@ -120,20 +130,25 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         
         while(Requete.next())
         {
-            //System.out.println(Requete.getString("column_name"));
+            //On ajoute le nom de la colonne dans la table
             table.addColumn(Requete.getString("column_name"));
         }
        
+        //On ajoute table à la jtable
         jtable.setModel(table);
         
+       //On affiche les données de la table chambre par défaut
         Requete = stmt.executeQuery("SELECT * FROM chambre");
+        
         while(Requete.next())
         {
+            //On ajoute des colonnes et des rangs au tableau en fonction du nombre de colonne dans table
             table.addRow(new Object[]{
                 Requete.getString(table.getColumnName(0)),Requete.getString(table.getColumnName(1)),Requete.getString(table.getColumnName(2)),Requete.getString(table.getColumnName(3))
             });
         }
         
+       //On ajoute table à la jtable
         jtable.setModel(table);
 
         // Création des pannels  
@@ -142,11 +157,13 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         p2 = new JPanel();  
         p3 = new JPanel();
         
+        // On définit un nombre de boutons par panel
         p0.setLayout(new GridLayout(1, 3)); 
         p1.setLayout(new GridLayout(1,1)); 
         p2.setLayout(new GridLayout(1, 1)); 
         
         
+        //On place les boutons, le tableau et le menu déroulant dans les panels
         p0.add(Recherche); 
         p0.add(MaJ); 
         p0.add(Reporting); 
@@ -326,23 +343,27 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         }
     }
 
-    
- 
+    /**
+     *Actions réalisées dans l'écran principal, en fonction de l'intérraction avec les objets de la fenetre
+     * @param e
+     */
     @Override 
     public void actionPerformed(ActionEvent e) { 
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods,choose Tools | Templates. 
      Object source = e.getSource();
      
+    // Si on clique sur une des valeurs de la combobox
      if (source == combo){
          try {
              DefaultTableModel table = new DefaultTableModel();
              Statement stmt = conn.createStatement(); 
              
+             // On recupère le résultat de la recherche en fonction de l'élément séléctionné
              ResultSet Requete = stmt.executeQuery("SELECT column_name FROM information_schema.columns WHERE table_name = '"+combo.getSelectedItem()+"'");
            
                  while(Requete.next())
                  {
-                     //On ajoute au tableau chaque colonne de la table sélectionne
+                     //On ajoute au tableau chaque colonne de la table sélectionée
                      table.addColumn(Requete.getString("column_name"));
                  }
              
@@ -352,6 +373,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
       
                 Requete = stmt.executeQuery("SELECT * FROM "+combo.getSelectedItem()+"");
                 
+                //On attribueune colonne à chcune de celles de la table, en fonction de la taille de la jtable
                 if(jtable.getColumnCount()== 2){
                 while(Requete.next()){
                      table.addRow(new Object[]{
