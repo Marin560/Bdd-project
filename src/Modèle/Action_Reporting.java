@@ -69,7 +69,7 @@ public class Action_Reporting extends JFrame {
         // Camembert
         pieDataset.setValue(Noms[i], Nombre[i]);
         // Histogramme
-        barDataset.addValue(Nombre[i], " ", Noms[i]);
+        barDataset.addValue(Nombre[i], "Quantité", Noms[i]);
         
     }
     
