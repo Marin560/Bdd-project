@@ -76,62 +76,27 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         combo.addItem("Soigne");
         combo.addActionListener(this);
          
-        ////////////////////////////
-        
-        
+
         jtable.addMouseListener(new MouseAdapter()  {
             public void mousePressed(MouseEvent e) {
  
             // clic sur le bouton gauche ou droit
             if(e.getButton() == MouseEvent.BUTTON1)		
 		{
-		//Récupération de la case cliquée
-                int row = jtable.rowAtPoint(e.getPoint()); 
-		int col = jtable.columnAtPoint(e.getPoint());
-					
-                //On vérifie la colonne sélectionnée 
-                //jtable.getColumnName(col)
-                String ancienne_valeur = (String) jtable.getValueAt(row, col);
-                                        
-                System.out.println(jtable.getColumnName(col));
-                //System.out.println(combo.getSelectedItem());
-                                        
-                modification_tableau(row,col);
-                                        
-                                        /*
-                                        JOptionPane op = new JOptionPane();
-                                        String nom ;  
-                                        
-                                        
-                                        //Pour la chambre
-                                        //Si on clique sur la bonne colonne, ici c'est surveillant 
-                                        if(jtable.getColumnName(col).equals("surveillant")){
-                                            //On demande la nouvelle valeur
-                                            nom = op.showInputDialog(null, "Entrez le nouveau Surveillant", "Changement de Surveillant", JOptionPane.QUESTION_MESSAGE);
+                    //Récupération de la case cliquée
+                    int row = jtable.rowAtPoint(e.getPoint()); 
+                    int col = jtable.columnAtPoint(e.getPoint());
 
-                                            try {
-                                                //UPDATE `chambre` SET `surveillant` = '86' WHERE CONCAT(`chambre`.`no_chambre`) = '101'
-                                                //stmt.execute("UPDATE '"+maString+"' SET '"+jtable.getColumnName(col)+"' = '"+nom+"' WHERE CONCAT(`chambre`.`"+jtable.getColumnName(col-1)+"`) = '"+jtable.getValueAt(row, col-1)+"' ");
-                                                stmt.execute("UPDATE `"+combo.getSelectedItem()+"` SET `"+jtable.getColumnName(col)+"` = '"+nom+"' WHERE CONCAT(`chambre`.`"+jtable.getColumnName(col-1)+"`) = '101'");
-                                                //On met la valeur dans le tableau
-                                                jtable.setValueAt(nom, row, col);
-                                            
-                                            } catch (SQLException ex) {
-                                                Logger.getLogger(EcranPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                                            }
+                    //On vérifie la colonne sélectionnée 
+                    //jtable.getColumnName(col)
+                    String ancienne_valeur = (String) jtable.getValueAt(row, col);
 
-                                            
-                                        }
-                                        */
-                                        
+                    System.out.println(jtable.getColumnName(col));
+                    //System.out.println(combo.getSelectedItem());
 
-                                        //Modification dans la base de donnée
-                                        //UPDATE `malade` SET `tel` = '0516545' WHERE CONCAT(`malade`.`numero`) = '0';
-                                        
-                                        
-                                }
-                                
-                        }
+                    modification_tableau(row,col);
+                }
+            }
         });
         
         
@@ -141,19 +106,14 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         // Création des boutons 
         Recherche = new JButton("Recherche d'informations"); 
         MaJ = new JButton ("Ajouter Element"); 
-        modif = new JButton ("Modifier des élements");
         Reporting = new JButton ("Reporting");
-
-        
+  
         Recherche.addActionListener(this);
         MaJ.addActionListener(this);
-        modif.addActionListener(this);
         Reporting.addActionListener(this);
         
         DefaultTableModel table = new DefaultTableModel();
-        
-        
-        
+
         //Recherche des noms des colonnes pour la table "chambre"
         ResultSet Requete = stmt.executeQuery("SELECT column_name FROM information_schema.columns WHERE table_name = 'chambre'");
         
@@ -174,15 +134,12 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         }
         
         jtable.setModel(table);
-        
-       
-        
+
         // Création des pannels  
         p0 = new JPanel(); 
         p1 = new JPanel(); 
         p2 = new JPanel();  
         p3 = new JPanel();
-        
         
         p0.setLayout(new GridLayout(1, 3)); 
         p1.setLayout(new GridLayout(1,1)); 
@@ -191,7 +148,6 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         
         p0.add(Recherche); 
         p0.add(MaJ); 
-        p0.add(modif);
         p0.add(Reporting); 
         p2.add(combo);
         p1.add(jScrollPane); 
@@ -214,7 +170,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         JOptionPane op = new JOptionPane();
         String nom;
         
-        
+        //Modifs surveillant
         if((jtable.getColumnName(col).equals("surveillant"))&&(combo.getSelectedItem()== "Chambre")){
             //On demande la nouvelle valeur
             nom = op.showInputDialog(null, "Entrez le nouveau Surveillant", "Changement de Surveillant", JOptionPane.QUESTION_MESSAGE);
@@ -235,6 +191,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
                 }
                    
         }    
+        
         else if((jtable.getColumnName(col).equals("specialite"))&&(combo.getSelectedItem()== "Docteur")){
             //On demande la nouvelle valeur
             String[] valeurs_possibles = {"Orthopediste", "Cardiologue", "Traumatologue", "Anesthesiste", "Pneumologue", "Radiologue" };
@@ -255,7 +212,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
             jtable.setValueAt(nom, row, col);
             
         }
-        else if((combo.getSelectedItem()== "Employe")||(combo.getSelectedItem()== "Malade")){
+        else if(((combo.getSelectedItem()== "Employe")||(combo.getSelectedItem()== "Malade"))&&(!jtable.getColumnName(col).equals("numero"))){
             //On demande la nouvelle valeur
             System.out.println(jtable.getValueAt(row, 0));
             nom = op.showInputDialog(null, "Entrez les nouvelles informations", "Changement d'informations", JOptionPane.QUESTION_MESSAGE);
@@ -270,6 +227,27 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
 
             //On met la nouvelle valeur dans le tableau
             jtable.setValueAt(nom, row, col);
+            
+        }
+        //Supprimer un employe ou un malade
+        else if(((combo.getSelectedItem()== "Employe")||(combo.getSelectedItem()== "Malade"))&&(jtable.getColumnName(col).equals("numero"))){
+            //On demande la nouvelle valeur
+            int choix_utilisateur = op.showConfirmDialog(null, "Etes vous sûr de vouloir supprimer cet élément ?", "Supression personne", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            
+            //Si l'utilisateur dit oui
+            if(choix_utilisateur == JOptionPane.OK_OPTION ){
+                try {
+                    //On envoie la nouvelle valeur dans la base de données
+                    //DELETE FROM `malade` WHERE CONCAT(`malade`.`numero`) = '194';
+                    stmt.execute("DELETE FROM `"+combo.getSelectedItem()+"` WHERE CONCAT (`"+combo.getSelectedItem()+"`.`numero`) = '"+jtable.getValueAt(row, 0)+"'  ");                                  //On met la valeur dans le tableau
+                    
+                    //On recharge la page 
+                    combo.setSelectedItem(combo.getSelectedItem());
+                } catch (SQLException ex) {
+                    Logger.getLogger(EcranPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
             
         }
         else if(combo.getSelectedItem()== "Infirmier"){
@@ -323,21 +301,10 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
             }
             
 
-
-            //On met la nouvelle valeur dans le tableau
-            //jtable.setValueAt(nom, row, col);
             
         }
     }
-    
-    
-    //On récupère toutes les valeurs possibles dans code_service
-                    /*
-                    ResultSet Requete = stmt.executeQuery("SELECT DISTINCT code_service FROM infirmier");
-                    while(Requete.next()){
-                        System.out.println(Requete.getString("code_service"));
-                    }
-                    */
+
     
  
     @Override 
@@ -410,10 +377,6 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
      else if(source == MaJ){
         
          Ajouter ajout = new Ajouter(conn);
-     }
-     
-     else if(source == modif){
-         Modifier_element nouvelle_modif = new Modifier_element(conn);
      }
      
      else if(source == Reporting){

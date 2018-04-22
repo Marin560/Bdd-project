@@ -137,7 +137,7 @@ public class Ajouter extends Fenetre implements ActionListener{
             dernier++;
             //Envoie des infos dans la base de donnée grâce à la classe connexion
             stmt.execute("INSERT INTO `malade` (`numero`, `nom`, `prenom`, `adresse`, `tel`, `mutuelle`) VALUES ('"+dernier+"', '"+nom+"', '"+prenom+"', '"+adresse+"', '"+telephone+"', '"+mutuelle+"')");
-
+            this.dispose();
         }
     }
     
@@ -170,11 +170,13 @@ public class Ajouter extends Fenetre implements ActionListener{
                 //salaire = (String) salaire;
                 
                 stmt.execute("INSERT INTO `infirmier` (`numero`, `code_service`, `rotation`, `salaire`) VALUES ('"+dernier+"', '"+service+"', '"+rotation+"', NULL)");
+                this.dispose();
             }
             else if(type_employe.equals("Docteur")){
                 //Ajout du docteur
                 String specialite = (String) doc_service.getSelectedItem();
                 stmt.execute("INSERT INTO `docteur` (`numero`, `specialite`) VALUES ('"+dernier+"', '"+specialite+"')");
+                this.dispose();
             }
             
         }
