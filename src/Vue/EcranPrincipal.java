@@ -53,6 +53,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
     
     public String namebdd;
     private Connection conn; ///////////
+    private Statement stmt;
     
     public EcranPrincipal (Connection maConnexion) throws SQLException{ //Constructeur
         // creation par heritage de la fenetre 
@@ -61,7 +62,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Quitte le programme quand la fenêtre est fermée
 
         this.conn = maConnexion;
-        Statement stmt = maConnexion.createStatement(); 
+        stmt = maConnexion.createStatement(); 
         
         
         //On crée le panneau déroulant
@@ -77,25 +78,30 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
          
         ////////////////////////////
         
+        
         jtable.addMouseListener(new MouseAdapter()  {
-			public void mousePressed(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
  
-                                // clic sur le bouton gauche ou droit
-				if(e.getButton() == MouseEvent.BUTTON1 ||
-						e.getButton() == MouseEvent.BUTTON3) 
-				{
-					int row = jtable.rowAtPoint(e.getPoint()); 
-					int col = jtable.columnAtPoint(e.getPoint());
+            // clic sur le bouton gauche ou droit
+            if(e.getButton() == MouseEvent.BUTTON1)		
+		{
+		//Récupération de la case cliquée
+                int row = jtable.rowAtPoint(e.getPoint()); 
+		int col = jtable.columnAtPoint(e.getPoint());
 					
-                                        //On vérifie la colonne sélectionnée 
-                                        //jtable.getColumnName(col)
-                                        String ancienne_valeur = (String) jtable.getValueAt(row, col);
+                //On vérifie la colonne sélectionnée 
+                //jtable.getColumnName(col)
+                String ancienne_valeur = (String) jtable.getValueAt(row, col);
                                         
-                                        System.out.println(jtable.getColumnName(col));
-                                        //System.out.println(combo.getSelectedItem());
+                System.out.println(jtable.getColumnName(col));
+                //System.out.println(combo.getSelectedItem());
                                         
+                modification_tableau(row,col);
+                                        
+                                        /*
                                         JOptionPane op = new JOptionPane();
                                         String nom ;  
+                                        
                                         
                                         //Pour la chambre
                                         //Si on clique sur la bonne colonne, ici c'est surveillant 
@@ -116,7 +122,9 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
 
                                             
                                         }
+                                        */
                                         
+
                                         //Modification dans la base de donnée
                                         //UPDATE `malade` SET `tel` = '0516545' WHERE CONCAT(`malade`.`numero`) = '0';
                                         
@@ -199,8 +207,138 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
         
     }  
   
+    
+    //Methode
+    public void modification_tableau(int row, int col){
+        
+        JOptionPane op = new JOptionPane();
+        String nom;
+        
+        
+        if((jtable.getColumnName(col).equals("surveillant"))&&(combo.getSelectedItem()== "Chambre")){
+            //On demande la nouvelle valeur
+            nom = op.showInputDialog(null, "Entrez le nouveau Surveillant", "Changement de Surveillant", JOptionPane.QUESTION_MESSAGE);
+            
+            try {
+                //UPDATE `chambre` SET `surveillant` = '86' WHERE CONCAT(`chambre`.`no_chambre`) = '101'
+                //stmt.execute("UPDATE '"+maString+"' SET '"+jtable.getColumnName(col)+"' = '"+nom+"' WHERE CONCAT(`chambre`.`"+jtable.getColumnName(col-1)+"`) = '"+jtable.getValueAt(row, col-1)+"' ");
+                //stmt.execute("UPDATE `"+combo.getSelectedItem()+"` SET `"+jtable.getColumnName(col)+"` = '"+nom+"' WHERE CONCAT(`chambre`.`"+jtable.getColumnName(col-1)+"`) = '101'");
+                stmt.execute("UPDATE `"+combo.getSelectedItem()+"` SET `"+jtable.getColumnName(col)+"` = '"+nom+"' "
+                      + "WHERE `chambre`.`code_service` = '"+jtable.getValueAt(row, col-2)+"' AND(`chambre`.`"+jtable.getColumnName(col-1)+"`) = '101'");                                  //On met la valeur dans le tableau
+               
+                jtable.setValueAt(nom, row, col);
+                                                
+                //WHERE `chambre`.`code_service` = 'CAR'
+                                                
+                } catch (SQLException ex) {
+                    Logger.getLogger(EcranPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                   
+        }    
+        else if((jtable.getColumnName(col).equals("specialite"))&&(combo.getSelectedItem()== "Docteur")){
+            //On demande la nouvelle valeur
+            String[] valeurs_possibles = {"Orthopediste", "Cardiologue", "Traumatologue", "Anesthesiste", "Pneumologue", "Radiologue" };
+            nom = (String) op.showInputDialog(null, "Entrez la nouvelle spécialite", "Changement de Spécialité", 
+            
+            //On demande la nouvelle valeur
+            JOptionPane.QUESTION_MESSAGE, null, valeurs_possibles, jtable.getValueAt(row, col));
+            
+            try {
+                //On envoie la nouvelle valeur dans la base de données
+                stmt.execute("UPDATE `"+combo.getSelectedItem()+"` SET `"+jtable.getColumnName(col)+"` = '"+nom+"' "+ "WHERE `docteur`.`numero` = '"+jtable.getValueAt(row, col-1)+"' ");                                  //On met la valeur dans le tableau
 
-     
+                } catch (SQLException ex) {
+                Logger.getLogger(EcranPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //On met la nouvelle valeur dans le tableau
+            jtable.setValueAt(nom, row, col);
+            
+        }
+        else if((combo.getSelectedItem()== "Employe")||(combo.getSelectedItem()== "Malade")){
+            //On demande la nouvelle valeur
+            System.out.println(jtable.getValueAt(row, 0));
+            nom = op.showInputDialog(null, "Entrez les nouvelles informations", "Changement d'informations", JOptionPane.QUESTION_MESSAGE);
+            
+            try {
+                //On envoie la nouvelle valeur dans la base de données
+                stmt.execute("UPDATE `"+combo.getSelectedItem()+"` SET `"+jtable.getColumnName(col)+"` = '"+nom+"' "+ "WHERE `"+combo.getSelectedItem()+"`.`numero` = '"+jtable.getValueAt(row, 0)+"' ");                                  //On met la valeur dans le tableau
+
+                } catch (SQLException ex) {
+                Logger.getLogger(EcranPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //On met la nouvelle valeur dans le tableau
+            jtable.setValueAt(nom, row, col);
+            
+        }
+        else if(combo.getSelectedItem()== "Infirmier"){
+            
+            if(jtable.getColumnName(col).equals("code_service")){
+               //On demande la nouvelle valeur
+                String[] valeurs_possibles = {"REA", "CHG", "CAR"};
+                nom = (String) op.showInputDialog(null, "Choisissez un Service", "Changement de Service",
+                JOptionPane.QUESTION_MESSAGE, null, valeurs_possibles, jtable.getValueAt(row, col));
+
+                try {
+                    //On envoie la nouvelle valeur dans la base de données
+                    stmt.execute("UPDATE `"+combo.getSelectedItem()+"` SET `"+jtable.getColumnName(col)+"` = '"+nom+"' "+ "WHERE `infirmier`.`numero` = '"+jtable.getValueAt(row, 0)+"' ");                                  //On met la valeur dans le tableau
+
+                    } catch (SQLException ex) {
+                    Logger.getLogger(EcranPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //On met la nouvelle valeur dans le tableau
+                jtable.setValueAt(nom, row, col);
+
+            }
+            else if(jtable.getColumnName(col).equals("rotation")){
+                //On demande la nouvelle valeur
+                String[] valeurs_possibles = {"NUIT", "JOUR"};
+                nom = (String) op.showInputDialog(null, "Choisissez un Service", "Changement de Service",JOptionPane.QUESTION_MESSAGE, null, valeurs_possibles, jtable.getValueAt(row, col));
+                
+                try {
+                    //On envoie la nouvelle valeur dans la base de données
+                    stmt.execute("UPDATE `"+combo.getSelectedItem()+"` SET `"+jtable.getColumnName(col)+"` = '"+nom+"' "+ "WHERE `infirmier`.`numero` = '"+jtable.getValueAt(row, 0)+"' ");                                  //On met la valeur dans le tableau
+
+                    } catch (SQLException ex) {
+                    Logger.getLogger(EcranPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //On met la nouvelle valeur dans le tableau
+                jtable.setValueAt(nom, row, col);
+            }
+            else if(jtable.getColumnName(col).equals("salaire")){
+                //On demande la nouvelle valeur
+                nom = op.showInputDialog(null, "Entrez le nouveau Surveillant", "Changement de Surveillant", JOptionPane.QUESTION_MESSAGE);
+
+                try {
+                    stmt.execute("UPDATE `"+combo.getSelectedItem()+"` SET `"+jtable.getColumnName(col)+"` = '"+nom+"' WHERE `infirmier`.`numero` = '"+jtable.getValueAt(row, 0)+"' ");                                  //On met la valeur dans le tableau
+
+                    jtable.setValueAt(nom, row, col);
+
+                    //WHERE `chambre`.`code_service` = 'CAR'
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(EcranPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            }
+            
+
+
+            //On met la nouvelle valeur dans le tableau
+            //jtable.setValueAt(nom, row, col);
+            
+        }
+    }
+    
+    
+    //On récupère toutes les valeurs possibles dans code_service
+                    /*
+                    ResultSet Requete = stmt.executeQuery("SELECT DISTINCT code_service FROM infirmier");
+                    while(Requete.next()){
+                        System.out.println(Requete.getString("code_service"));
+                    }
+                    */
+    
  
     @Override 
     public void actionPerformed(ActionEvent e) { 
@@ -307,14 +445,7 @@ public class EcranPrincipal extends Fenetre implements ActionListener, ItemListe
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        if(me.getSource()== jtable){
-            int row = jtable.getSelectedRow();
-            int column = jtable.getSelectedColumn();
-            
-            System.out.println("Oui");
-            System.out.println(row);
-            System.out.println(column);
-        }
+    
     }
 
     @Override
